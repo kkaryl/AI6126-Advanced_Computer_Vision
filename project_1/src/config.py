@@ -18,12 +18,13 @@ evaluate = False
 # dist_url = 'tcp://224.66.41.62:23456' #url used to set up distributed training
 # dist_backend = 'gloo'
 gpu_id = '0'
+disable_tqdm = True
 
 # optimization
-train_batch = 128
+train_batch = 256
 dl_workers = 8
 test_batch = 128
-epochs = 90
+epochs = 60
 # start_epoch = 0
 lr = 0.1
 lr_decay = 'step'
@@ -39,7 +40,7 @@ ckp_resume = '' #path to latest checkpoint (default: none)
 ckp_logger_fname = join(CHECKPOINT_DIR, 'log.txt')
 checkpoint_fname = join(CHECKPOINT_DIR, 'checkpoint.pth.tar')
 bestmodel_fname = join(CHECKPOINT_DIR, 'model_best.pth.tar')
-tensorboard_dir = join(CHECKPOINT_DIR, 'logs')
+tensorboard_dir = 'runs'
 train_plotfig = join(CHECKPOINT_DIR, 'logs.eps')
 
 # Architecture

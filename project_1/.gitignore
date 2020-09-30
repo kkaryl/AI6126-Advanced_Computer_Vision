@@ -2,3 +2,4 @@ data/
 .ignore/
 .testing/
 src/checkpoints/
+src/runs/

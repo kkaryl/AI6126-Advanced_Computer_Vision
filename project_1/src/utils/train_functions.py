@@ -1,9 +1,11 @@
 from __future__ import print_function
 
 import sys
+import torch
 
-__all__ = ['AverageMeter', 'adjust_learning_rate', 'accuracy']
+__all__ = ['AverageMeter', 'adjust_learning_rate', 'accuracy', 'reset_gpu_cache', 'print_attribute_acc']
 
+        
 class AverageMeter(object):
     """Computes and stores the average and current value
        Imported from https://github.com/pytorch/examples/blob/master/imagenet/main.py#L247-L262
@@ -23,6 +25,13 @@ class AverageMeter(object):
         self.sum += val * n
         self.count += n
         self.avg = self.sum / self.count
+        
+class AttributeAverageMeter(AverageMeter):
+    
+    def __init__(self, idx, name):
+        super(AttributeAverageMeter, self).__init__()
+        self.idx = idx
+        self.name
 
 
 def adjust_learning_rate(optimizer, decay_type, epoch,
@@ -75,7 +84,49 @@ def accuracy(output, target, topk=(1,)):
         res.append(correct_k.mul_(100.0 / batch_size))
     return res
 
+def reset_gpu_cache(model, optimizer, criterio, device):
+    
+    def _wipe_memory(cuda_obj, is_optimizer=False): 
+        if is_optimizer:
+            _gpu_to(cuda_obj, torch.device('cpu'))        
+            del cuda_obj
+            import gc
+            gc.collect()
+        else:
+            cpu_obj = cuda_obj.to(torch.device('cpu'))
+            cuda_obj = cuda_obj.to(device)
+            
+        torch.cuda.empty_cache()
 
+    def _gpu_to(cuda_obj, device):
+        for param in cuda_obj.state.values():
+            # Not sure there are any global tensors in the state dict
+            if isinstance(param, torch.Tensor):
+                param.data = param.data.to(device)
+                if param._grad is not None:
+                    param._grad.data = param._grad.data.to(device)
+            elif isinstance(param, dict):
+                for subparam in param.values():
+                    if isinstance(subparam, torch.Tensor):
+                        subparam.data = subparam.data.to(device)
+                        if subparam._grad is not None:
+                            subparam._grad.data = subparam._grad.data.to(device)
+                            
+    if model:
+        _wipe_memory(model)
+    if optimizer:                        
+        _wipe_memory(optimizer, is_optimizer=True)
+    if criterion:
+        _wipe_memory(criterion)
+
+    
+                            
+def print_attribute_acc(top1, attribute_names):
+    assert len(top1) == len(attribute_names)
+    assert type(top1[0]) == AverageMeter
+    for t, a in zip(top1, attribute_names):
+        print(f"{a}: {t.avg}")
+        
 def view_bar(num, total):
     """
 
