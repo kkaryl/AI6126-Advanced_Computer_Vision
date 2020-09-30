@@ -1,0 +1,4 @@
+data/
+.ignore/
+.testing/
+src/checkpoints/
