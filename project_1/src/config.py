@@ -9,6 +9,7 @@ TRAIN_ATTRIBUTE_LIST: str = join(DATASET_DIR, 'train_attr_list.txt')
 VAL_ATTRIBUTE_LIST: str = join(DATASET_DIR, 'val_attr_list.txt')
 TEST_ATTRIBUTE_LIST: str = join(DATASET_DIR, 'test_attr_list.txt')
 CHECKPOINT_DIR: str = 'checkpoints'
+BACKUP_DIR: str = 'backups'
 
 """HYPER PARAMETERS"""
 # Miscs
@@ -19,9 +20,10 @@ evaluate = False
 # dist_backend = 'gloo'
 gpu_id = '0'
 disable_tqdm = True
+auto_hibernate = True
 
 # optimization
-train_batch = 256
+train_batch = 128
 dl_workers = 8
 test_batch = 128
 epochs = 60

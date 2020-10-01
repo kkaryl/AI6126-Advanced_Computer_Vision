@@ -3,3 +3,4 @@ data/
 .testing/
 src/checkpoints/
 src/runs/
+src/backups/

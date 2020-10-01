@@ -3,7 +3,7 @@ from __future__ import print_function
 import sys
 import torch
 
-__all__ = ['AverageMeter', 'adjust_learning_rate', 'accuracy', 'reset_gpu_cache', 'print_attribute_acc']
+__all__ = ['AverageMeter', 'adjust_learning_rate', 'accuracy', 'reset_gpu_cache', 'print_attribute_acc', 'create_dir_ifne']
 
         
 class AverageMeter(object):
@@ -142,3 +142,7 @@ def view_bar(num, total):
         r = '\r[%s%s]%d%%' % ("=" * 100, " " * 0, 100,)
     sys.stdout.write(r)
     sys.stdout.flush()
+
+def create_dir_ifne(dir_path):
+    if not os.path.exists(dir_path):
+        os.makedirs(dir_path)
