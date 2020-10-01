@@ -62,9 +62,9 @@ class FaceAttrResNet(nn.Module):
         print("=> saving checkpoint '{}'".format(checkpoint_path))
         torch.save(state, checkpoint_path)
         if is_best:
-            best_fpath = bestmodel_path
-            # copy that checkpoint file to best path given, best_model_path
-            shutil.copyfile(checkpoint_path, best_fpath)
+            print(f"=> saving best model '{bestmodel_path}'")
+            # copy that checkpoint file to best path given, bestmodel_path
+            shutil.copyfile(checkpoint_path, bestmodel_path)
 
     def load_ckp(self, optimizer, checkpoint_path):
         print(f"=> loading checkpoint '{checkpoint_path}'")
