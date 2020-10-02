@@ -59,7 +59,7 @@ class FaceAttrResNet(nn.Module):
         return y
 
     def save_ckp(self, state, is_best, checkpoint_path, bestmodel_path):
-        print("=> saving checkpoint '{}'".format(checkpoint_path))
+        print(f"=> saving checkpoint '{checkpoint_path}'")
         torch.save(state, checkpoint_path)
         if is_best:
             print(f"=> saving best model '{bestmodel_path}'")
