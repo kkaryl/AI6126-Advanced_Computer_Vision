@@ -2,6 +2,8 @@ import os
 import torch
 import torch.utils.data as data
 import PIL
+import numpy as np
+import cv2
 
 
 class CelebaDataset(data.Dataset):
@@ -23,12 +25,19 @@ class CelebaDataset(data.Dataset):
 
     def __getitem__(self, index):
         path = self.images[index]
-        sample = PIL.Image.open(path)
+        image = cv2.imread(path)
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         target = self.targets[index]
         target = torch.LongTensor(target)
-        if self.transform is not None:
-            sample = self.transform(sample)
-        if self.target_transform is not None:
+        if self.transform:
+            try:
+                augmented = self.transform(image=image)
+                sample = augmented['image'] #albu
+            except: 
+                image = PIL.Image.fromarray(image)
+                sample = self.transform(image) # torchvision
+                
+        if self.target_transform:
             target = self.target_transform(target)
 
         return sample, target

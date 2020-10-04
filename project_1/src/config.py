@@ -23,10 +23,10 @@ disable_tqdm = True
 auto_hibernate = True
 
 # optimization
-train_batch = 256
+train_batch = 256 #256
 dl_workers = 8
-test_batch = 128
-epochs = 60
+test_batch = 128 #128
+epochs = 1 #60
 # start_epoch = 0
 lr = 0.1
 lr_decay = 'step'
@@ -36,7 +36,7 @@ turning_point = 100 # epoch number from linear to exponential decay mode
 gamma = 0.1 #LR is multiplied by gamma on schedule
 momentum = 0.9
 weight_decay = 1e-4
-criterion = 'FocalLoss'
+criterion = 'CE'
 
 # Checkpoints and loggers
 ckp_resume = '' #path to latest checkpoint (default: none) #join(CHECKPOINT_DIR, 'checkpoint.pth.tar')
@@ -47,8 +47,8 @@ tensorboard_dir = 'runs'
 train_plotfig = join(CHECKPOINT_DIR, 'logs.eps')
 
 # Architecture
-arch = 'FaceAttrResNet' #model architecture
-pt_layers = 18
+arch = 'FaceAttrResNet' # #model architecture FaceAttrResNet FaceAttrMobileNetV2 FaceAttrResNeXt
+pt_layers = 18 # 34, 50 18
 cardinality = 32 #ResNeXt model cardinality (group)
 base_width = 4 #ResNeXt model base width (number of channels in each group)
 groups = 3 #ShuffleNet model groups
