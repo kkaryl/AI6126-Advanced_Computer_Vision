@@ -26,17 +26,18 @@ auto_hibernate = True
 train_batch = 256 #256
 dl_workers = 8
 test_batch = 128 #128
-epochs = 1 #60
+epochs = 50 #60
 # start_epoch = 0
 lr = 0.1
-lr_decay = 'step'
+lr_decay = 'step' #step, cos, linear, linear2exp, schedule
 step = 30 # interval for learning rate decay in step mode
-schedule = [150, 225] # X? decrease learning rate at these epochs
+schedule = [30, 35, 40, 45, 50, 55, 56, 57, 58, 59, 60] # decrease learning rate at these epochs [150, 225]
 turning_point = 100 # epoch number from linear to exponential decay mode
-gamma = 0.1 #LR is multiplied by gamma on schedule
+gamma = 0.1 #LR is multiplied by gamma on schedule 0.1
 momentum = 0.9
 weight_decay = 1e-4
 criterion = 'CE'
+optimizer = 'Adam'
 
 # Checkpoints and loggers
 ckp_resume = '' #path to latest checkpoint (default: none) #join(CHECKPOINT_DIR, 'checkpoint.pth.tar')
