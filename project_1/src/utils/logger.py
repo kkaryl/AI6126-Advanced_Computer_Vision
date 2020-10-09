@@ -25,17 +25,20 @@ class Logger(object):
         self.title = '' if title == None else title
         if fpath is not None:
             if resume: 
+                print(f"=> resuming logger")
                 self.file = open(fpath, 'r') 
-                name = self.file.readline()
+                linelist = self.file.readlines()
+                name = linelist[0]
                 self.names = name.rstrip().split('\t')
                 self.numbers = {}
                 for _, name in enumerate(self.names):
                     self.numbers[name] = []
 
-                for numbers in self.file:
+                for numbers in linelist[1:]:
                     numbers = numbers.rstrip().split('\t')
                     for i in range(0, len(numbers)):
                         self.numbers[self.names[i]].append(numbers[i])
+                print(self.numbers)
                 self.file.close()
                 self.file = open(fpath, 'a')  
             else:
@@ -58,7 +61,7 @@ class Logger(object):
     def append(self, numbers):
         assert len(self.names) == len(numbers), 'Numbers do not match names'
         for index, num in enumerate(numbers):
-            self.file.write("{0:.6f}".format(num))
+            self.file.write("{0:.15f}".format(num)) #.6f
             self.file.write('\t')
             self.numbers[self.names[index]].append(num)
         self.file.write('\n')
@@ -72,7 +75,39 @@ class Logger(object):
             plt.plot(x, np.asarray(numbers[name]))
         plt.legend([self.title + '(' + name + ')' for name in names])
         plt.grid(True)
-
+        plt.show()
+        
+    def plot_special(self, save_path=None):
+        assert self.names == ['Learning Rate', 'Train Loss', 'Valid Loss', 'Train Acc.', 'Valid Acc.']
+        numbers = self.numbers
+        epochs = np.arange(len(numbers[self.names[0]]))
+        #print(epochs)
+        fig, (ax1, ax2, ax3) = plt.subplots(nrows=1, ncols=3, figsize=(20,5))
+        ax1.set_title("Accuracy")
+        for acc in ['Train Acc.', 'Valid Acc.']:
+            ax1.plot(epochs, np.asarray(numbers[acc]), label=acc)
+            #ax1.set_ylim(80, 93)
+            #ax1.set_yticks(np.arange(83, 93, step=0.5))
+            #ax1.set_yticklabels(np.arange(83, 93, step=0.5))
+        ax1.legend()
+        plt.grid(True)
+        #plt.subplot(321)
+        ax2.set_title("Losses")
+        ax2.invert_yaxis()
+        for loss in ['Train Loss', 'Valid Loss']:
+            ax2.plot(epochs, np.asarray(numbers[loss]), label=loss)
+        ax2.legend()
+        plt.grid(True)
+        #plt.subplot(331)
+        ax3.set_title("Learning Rate")
+        ax3.invert_yaxis()
+        ax3.plot(epochs, np.asarray(numbers['Learning Rate']), label='lr')
+        ax3.legend()
+        plt.grid(True)
+        if save_path is not None and save_path != '':
+            plt.savefig(save_path, dpi=160)  
+        plt.show()
+    
     def close(self):
         if self.file is not None:
             self.file.close()

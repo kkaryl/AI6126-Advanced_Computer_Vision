@@ -27,8 +27,7 @@ train_batch = 256 #256
 dl_workers = 8
 test_batch = 128 #128
 epochs = 50 #60
-# start_epoch = 0
-lr = 0.1
+lr = 0.01
 lr_decay = 'step' #step, cos, linear, linear2exp, schedule
 step = 30 # interval for learning rate decay in step mode
 schedule = [30, 35, 40, 45, 50, 55, 56, 57, 58, 59, 60] # decrease learning rate at these epochs [150, 225]
@@ -36,8 +35,10 @@ turning_point = 100 # epoch number from linear to exponential decay mode
 gamma = 0.1 #LR is multiplied by gamma on schedule 0.1
 momentum = 0.9
 weight_decay = 1e-4
-criterion = 'CE'
-optimizer = 'Adam'
+criterion = 'CEL' #FocalLoss
+optimizer = 'AdamW' #SGD, Adam, AdamW
+scheduler = 'ReduceLROnPlateau' #Manual ReduceLROnPlateau
+patience = 5 # ReduceLROnPlateau
 
 # Checkpoints and loggers
 ckp_resume = '' #path to latest checkpoint (default: none) #join(CHECKPOINT_DIR, 'checkpoint.pth.tar')
@@ -46,6 +47,7 @@ checkpoint_fname = join(CHECKPOINT_DIR, 'checkpoint.pth.tar')
 bestmodel_fname = join(CHECKPOINT_DIR, 'model_best.pth.tar')
 tensorboard_dir = 'runs'
 train_plotfig = join(CHECKPOINT_DIR, 'logs.eps')
+train_saveplot = True
 
 # Architecture
 arch = 'FaceAttrResNet' # #model architecture FaceAttrResNet FaceAttrMobileNetV2 FaceAttrResNeXt
