@@ -88,8 +88,10 @@ class FaceAttrResNet(nn.Module):
         best_prec1 = checkpoint['best_prec1']
         self.load_state_dict(checkpoint['state_dict'])
         optimizer.load_state_dict(checkpoint['optimizer'])
+        lr = checkpoint['lr']
+        total_time = checkpoint['total_time']
         print(f"=> loaded checkpoint '{checkpoint_path}' (epoch {start_epoch})")
-        return optimizer, start_epoch, best_prec1
+        return optimizer, start_epoch, best_prec1, lr, total_time
 
 class FaceAttrMobileNetV2(nn.Module):
     def __init__(self, num_attributes=40):
