@@ -26,7 +26,7 @@ auto_hibernate = True
 train_batch = 256 #256
 dl_workers = 8
 test_batch = 128 #128
-epochs = 50 #60
+epochs = 2 #60
 lr = 0.01
 lr_decay = 'step' #step, cos, linear, linear2exp, schedule
 step = 30 # interval for learning rate decay in step mode
@@ -36,8 +36,8 @@ gamma = 0.1 #LR is multiplied by gamma on schedule 0.1
 momentum = 0.9
 weight_decay = 1e-4
 criterion = 'CEL' #FocalLoss
-optimizer = 'AdamW' #SGD, Adam, AdamW
-scheduler = 'ReduceLROnPlateau' #Manual ReduceLROnPlateau
+optimizer = 'SGD' #SGD, Adam, AdamW
+scheduler = 'OneCycleLR' #Manual ReduceLROnPlateau OneCycleLR
 patience = 5 # ReduceLROnPlateau
 
 # Checkpoints and loggers
