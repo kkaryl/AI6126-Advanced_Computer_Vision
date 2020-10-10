@@ -10,4 +10,3 @@ conda install -c conda-forge accimage
 conda install -c conda-forge tensorboardx
 ```
 
-https://github.com/mingyang96ong/mmsr/blob/master/codes/data/util.py
