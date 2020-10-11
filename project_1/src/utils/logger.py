@@ -2,6 +2,7 @@
 # (C) Wei YANG 2017
 import matplotlib.pyplot as plt
 import numpy as np
+plt.rcParams['axes.grid'] = True
 
 __all__ = ['Logger', 'LoggerMonitor', 'savefig']
 
@@ -93,17 +94,16 @@ class Logger(object):
         plt.grid(True)
         #plt.subplot(321)
         ax2.set_title("Losses")
-        ax2.invert_yaxis()
+        #ax2.invert_yaxis()
         for loss in ['Train Loss', 'Valid Loss']:
             ax2.plot(epochs, np.asarray(numbers[loss]), label=loss)
         ax2.legend()
         plt.grid(True)
         #plt.subplot(331)
         ax3.set_title("Learning Rate")
-        ax3.invert_yaxis()
+        #ax3.invert_yaxis()
         ax3.plot(epochs, np.asarray(numbers['Learning Rate']), label='lr')
         ax3.legend()
-        plt.grid(True)
         if save_path is not None and save_path != '':
             plt.savefig(save_path, dpi=160)  
         plt.show()
