@@ -26,7 +26,7 @@ auto_hibernate = True
 train_batch = 256 #256
 dl_workers = 8
 test_batch = 128 #128
-epochs = 50 #60
+epochs = 80 #60
 lr = 0.01
 lr_decay = 'step' #step, cos, linear, linear2exp, schedule
 step = 30 # interval for learning rate decay in step mode
@@ -34,11 +34,12 @@ schedule = [30, 35, 40, 45, 50, 55, 56, 57, 58, 59, 60] # decrease learning rate
 turning_point = 100 # epoch number from linear to exponential decay mode
 gamma = 0.1 #LR is multiplied by gamma on schedule 0.1
 momentum = 0.9
-weight_decay = 1e-4
-criterion = 'CEL' #FocalLoss CE
-optimizer = 'SGD' #SGD, Adam, AdamW
-scheduler = 'Manual' #Manual ReduceLROnPlateau OneCycleLR
+weight_decay = 1e-5  #1e-4 
+criterion = 'FocalLoss' #FocalLoss CE
+optimizer = 'AdamW' #SGD, Adam, AdamW
+scheduler = 'ReduceLROnPlateau' #Manual ReduceLROnPlateau OneCycleLR
 patience = 5 # ReduceLROnPlateau
+no_bias_bn_decay = True
 
 # Early Stopping
 early_stopping = True
@@ -46,7 +47,7 @@ es_min = 30 # minimum patience
 es_patience = 10 
 
 # Checkpoints and loggers
-ckp_resume = '' #path to latest checkpoint (default: none) #join(CHECKPOINT_DIR, 'checkpoint.pth.tar')
+ckp_resume = join(CHECKPOINT_DIR, 'checkpoint.pth.tar') #path to latest checkpoint (default: none) #join(CHECKPOINT_DIR, 'checkpoint.pth.tar')
 ckp_logger_fname = join(CHECKPOINT_DIR, 'log.txt')
 checkpoint_fname = join(CHECKPOINT_DIR, 'checkpoint.pth.tar')
 bestmodel_fname = join(CHECKPOINT_DIR, 'model_best.pth.tar')
@@ -56,7 +57,7 @@ train_saveplot = True
 
 # Architecture
 arch = 'FaceAttrResNet' # #model architecture FaceAttrResNet FaceAttrMobileNetV2 FaceAttrResNeXt
-pt_layers = 18 # 34, 50 18
+pt_layers = 34 # 34, 50 18
 cardinality = 32 #ResNeXt model cardinality (group)
 base_width = 4 #ResNeXt model base width (number of channels in each group)
 groups = 3 #ShuffleNet model groups
