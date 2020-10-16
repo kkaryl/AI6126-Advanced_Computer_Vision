@@ -62,7 +62,7 @@ class FaceAttrResNet(nn.Module):
             setattr(self, 'classifier' + str(i).zfill(2),
                     nn.Sequential(FC_Block(pt_out, pt_out // 2),
                                   nn.Linear(pt_out // 2, 2)))
-        self.name = 'FaceAttrResNet'+str(resnet_layers)
+        self.name = 'FaceAttrResNet_'+str(resnet_layers)
 
     def forward(self, x):
         x = self.pretrained(x)
@@ -72,7 +72,7 @@ class FaceAttrResNet(nn.Module):
             classifier = getattr(self, 'classifier' + str(i).zfill(2))
             y.append(classifier(x))
         return y
-
+    
     def save_ckp(self, state, is_best, checkpoint_path, bestmodel_path):
         print(f"=> saving checkpoint '{checkpoint_path}'")
         torch.save(state, checkpoint_path)
@@ -87,16 +87,18 @@ class FaceAttrResNet(nn.Module):
         start_epoch = checkpoint['epoch']
         best_prec1 = checkpoint['best_prec1']
         self.load_state_dict(checkpoint['state_dict'])
-        optimizer.load_state_dict(checkpoint['optimizer'])
+        if optimizer:
+            optimizer.load_state_dict(checkpoint['optimizer'])
         lr = checkpoint['lr']
         total_time = checkpoint['total_time']
         print(f"=> loaded checkpoint '{checkpoint_path}' (epoch {start_epoch})")
         return optimizer, start_epoch, best_prec1, lr, total_time
 
+
 class FaceAttrMobileNetV2(nn.Module):
     def __init__(self, num_attributes=40):
         super(FaceAttrMobileNetV2, self).__init__()
-        self.name = 'FaceAttrMobileNetV2'
+        self.name = 'FaceAttrMobileNetV2_50'
         pt_model = tvmodels.mobilenet_v2(pretrained=True, progress=False)
         pt_out = pt_model.classifier[-1].out_features
         self.pretrained = pt_model
@@ -129,16 +131,18 @@ class FaceAttrMobileNetV2(nn.Module):
         start_epoch = checkpoint['epoch']
         best_prec1 = checkpoint['best_prec1']
         self.load_state_dict(checkpoint['state_dict'])
-        optimizer.load_state_dict(checkpoint['optimizer'])
+        if optimizer:
+            optimizer.load_state_dict(checkpoint['optimizer'])
+        lr = checkpoint['lr']
+        total_time = checkpoint['total_time']
         print(f"=> loaded checkpoint '{checkpoint_path}' (epoch {start_epoch})")
-        return optimizer, start_epoch, best_prec1
+        return optimizer, start_epoch, best_prec1, lr, total_time
     
     
 class FaceAttrResNeXt(nn.Module):
     def __init__(self, resnet_layers, num_attributes=40):
         super(FaceAttrResNeXt, self).__init__()
         assert resnet_layers in [50, 101]
-        self.name = 'FaceAttrResNeXt'
         if resnet_layers == 50:
             pt_model = tvmodels.resnext50_32x4d(pretrained=True, progress=False)
         elif resnet_layers == 101:
@@ -150,7 +154,7 @@ class FaceAttrResNeXt(nn.Module):
             setattr(self, 'classifier' + str(i).zfill(2),
                     nn.Sequential(FC_Block(pt_out, pt_out // 2),
                                   nn.Linear(pt_out // 2, 2)))
-        self.name = 'FaceAttrResNeXt'+str(resnet_layers)
+        self.name = 'FaceAttrResNeXt_'+str(resnet_layers)
 
     def forward(self, x):
         x = self.pretrained(x)
@@ -175,6 +179,9 @@ class FaceAttrResNeXt(nn.Module):
         start_epoch = checkpoint['epoch']
         best_prec1 = checkpoint['best_prec1']
         self.load_state_dict(checkpoint['state_dict'])
-        optimizer.load_state_dict(checkpoint['optimizer'])
+        if optimizer:
+            optimizer.load_state_dict(checkpoint['optimizer'])
+        lr = checkpoint['lr']
+        total_time = checkpoint['total_time']
         print(f"=> loaded checkpoint '{checkpoint_path}' (epoch {start_epoch})")
-        return optimizer, start_epoch, best_prec1
+        return optimizer, start_epoch, best_prec1, lr, total_time
