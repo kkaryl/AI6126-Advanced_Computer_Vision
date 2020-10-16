@@ -32,15 +32,60 @@ class CelebaDataset(data.Dataset):
         if self.transform:
             try:
                 augmented = self.transform(image=image)
-                sample = augmented['image'] #albu
+                image = augmented['image'] #albu
             except: 
-                image = PIL.Image.fromarray(image)
-                sample = self.transform(image) # torchvision
+                image = PIL.Image.fromarray(path)
+                image = self.transform(image) # torchvision
                 
         if self.target_transform:
             target = self.target_transform(target)
 
-        return sample, target
+        return image, target
 
     def __len__(self):
         return len(self.images)
+    
+class CelebaTestset(data.Dataset):
+    def __init__(self, img_dir, transform=None):
+        images = []
+        imagenames = []
+        celeba_ctr = {}
+        
+        valid_images = [".jpg",".jpeg", ".gif",".png",".tiff"]
+        for dirname in os.listdir(img_dir):
+            dirpath = os.path.join(img_dir, dirname)
+            if os.path.isdir(dirpath):
+                counter = 0
+                for filename in os.listdir(dirpath):
+                    ext = os.path.splitext(filename)[1]
+                    if ext.lower() not in valid_images:
+                        continue
+                    images.append(os.path.join(dirpath, filename))
+                    imagenames.append(filename)
+                    counter += 1
+                celeba_ctr[dirname] = counter
+
+        self.images = images
+        self.imagenames = imagenames
+        self.celeba_ctr = celeba_ctr
+        self.transform = transform
+
+    def __getitem__(self, index):
+        path = self.images[index]
+        img_name = self.imagenames[index]
+        image = cv2.imread(path)
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+
+        if self.transform:
+            try:
+                augmented = self.transform(image=image)
+                image = augmented['image'] #albu
+            except: 
+                image = PIL.Image.fromarray(image)
+                image = self.transform(image) # torchvision
+                
+        return image, img_name
+
+    def __len__(self):
+        return len(self.images)
+    
