@@ -28,8 +28,8 @@ auto_hibernate = True
 train_batch = 128 #256
 dl_workers = 8
 test_batch = 128 #128
-epochs = 80 #60
-lr = 0.01
+epochs = 1 #60
+lr = 0.1
 lr_decay = 'step' #step, cos, linear, linear2exp, schedule
 step = 30 # interval for learning rate decay in step mode
 schedule = [30, 35, 40, 45, 50, 55, 56, 57, 58, 59, 60] # decrease learning rate at these epochs [150, 225]
@@ -37,11 +37,12 @@ turning_point = 100 # epoch number from linear to exponential decay mode
 gamma = 0.1 #LR is multiplied by gamma on schedule 0.1
 momentum = 0.9
 weight_decay = 1e-4  #1e-4 
-criterion = 'FocalLoss' #FocalLoss CE
+criterion = 'FocalLoss' #FocalLoss CE FocalLossLS
 optimizer = 'SGD' #SGD, Adam, AdamW
 scheduler = 'ReduceLROnPlateau' #Manual ReduceLROnPlateau OneCycleLR
 patience = 5 # ReduceLROnPlateau
 no_bias_bn_decay = True
+label_smoothing = 0 # 0 to turn off, 0.1 to turn on
 
 # Early Stopping
 early_stopping = True
@@ -56,9 +57,10 @@ bestmodel_fname = join(CHECKPOINT_DIR, 'model_best.pth.tar')
 tensorboard_dir = 'runs'
 train_plotfig = join(CHECKPOINT_DIR, 'logs.eps')
 train_saveplot = True
+test_preds_fname = join(CHECKPOINT_DIR, 'test_preds.json')
 
 # Architecture
-arch = 'FaceAttrResNet' # #model architecture FaceAttrResNet FaceAttrMobileNetV2 FaceAttrResNeXt
+arch = 'FaceAttrMobileNetV2' # #model architecture FaceAttrResNet FaceAttrMobileNetV2 FaceAttrResNeXt
 pt_layers = 50 # 34, 50 18
 cardinality = 32 #ResNeXt model cardinality (group)
 base_width = 4 #ResNeXt model base width (number of channels in each group)

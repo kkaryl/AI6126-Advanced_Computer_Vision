@@ -127,6 +127,7 @@ def print_attribute_acc(top1, attribute_names):
     assert type(top1[0]) == AverageMeter
     for t, a in zip(top1, attribute_names):
         print(f"{a}: {t.avg}")
+    return {a:t.avg for t, a in zip(top1, attribute_names)}
         
 def view_bar(num, total):
     """
