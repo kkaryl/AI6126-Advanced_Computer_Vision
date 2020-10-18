@@ -28,7 +28,7 @@ auto_hibernate = True
 train_batch = 128 #256
 dl_workers = 8
 test_batch = 128 #128
-epochs = 1 #60
+epochs = 80 #60
 lr = 0.1
 lr_decay = 'step' #step, cos, linear, linear2exp, schedule
 step = 30 # interval for learning rate decay in step mode
@@ -37,17 +37,18 @@ turning_point = 100 # epoch number from linear to exponential decay mode
 gamma = 0.1 #LR is multiplied by gamma on schedule 0.1
 momentum = 0.9
 weight_decay = 1e-4  #1e-4 
-criterion = 'FocalLoss' #FocalLoss CE FocalLossLS
+criterion = 'CE' #FocalLoss CE FocalLossLS
 optimizer = 'SGD' #SGD, Adam, AdamW
 scheduler = 'ReduceLROnPlateau' #Manual ReduceLROnPlateau OneCycleLR
 patience = 5 # ReduceLROnPlateau
 no_bias_bn_decay = True
-label_smoothing = 0 # 0 to turn off, 0.1 to turn on
+label_smoothing = 0.1 # 0 to turn off, 0.1 (default)
+mixed_up = 0.2 # mixedup alpha value: 0 to turn off, 0.2 (default)
 
 # Early Stopping
 early_stopping = True
 es_min = 30 # minimum patience
-es_patience = 10 
+es_patience = 7 
 
 # Checkpoints and loggers
 ckp_resume = '' #path to latest checkpoint (default: none) #join(CHECKPOINT_DIR, 'checkpoint.pth.tar')
@@ -60,7 +61,7 @@ train_saveplot = True
 test_preds_fname = join(CHECKPOINT_DIR, 'test_preds.json')
 
 # Architecture
-arch = 'FaceAttrMobileNetV2' # #model architecture FaceAttrResNet FaceAttrMobileNetV2 FaceAttrResNeXt
+arch = 'FaceAttrResNet' # #model architecture FaceAttrResNet FaceAttrMobileNetV2 FaceAttrResNeXt
 pt_layers = 50 # 34, 50 18
 cardinality = 32 #ResNeXt model cardinality (group)
 base_width = 4 #ResNeXt model base width (number of channels in each group)
