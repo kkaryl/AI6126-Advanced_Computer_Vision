@@ -126,15 +126,6 @@ def one_hot(labels: torch.Tensor,
          tensor. Default: if None, infers data type from values.
     Returns:
         torch.Tensor: the labels in one hot tensor of shape (N, C, *),
-    Examples::
-        >>> labels = torch.LongTensor([[[0, 1], [2, 0]]])
-        >>> kornia.losses.one_hot(labels, num_classes=3)
-        tensor([[[[1., 0.],
-                  [0., 1.]],
-                 [[0., 1.],
-                  [0., 0.]],
-                 [[0., 0.],
-                  [1., 0.]]]]
     """
     if not torch.is_tensor(labels):
         raise TypeError("Input labels type is not a torch.Tensor. Got {}"
