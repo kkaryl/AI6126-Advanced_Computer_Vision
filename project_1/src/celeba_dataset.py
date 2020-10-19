@@ -7,7 +7,7 @@ import cv2
 
 
 class CelebaDataset(data.Dataset):
-    def __init__(self, img_dir, ann_file, transform=None, target_transform=None):
+    def __init__(self, img_dir, ann_file, transform=None, target_transform=None, albu=True):
         images = []
         targets = []
 
@@ -22,19 +22,22 @@ class CelebaDataset(data.Dataset):
         self.targets = targets
         self.transform = transform
         self.target_transform = target_transform
+        self.albu_transform = albu
 
     def __getitem__(self, index):
         path = self.images[index]
-        image = cv2.imread(path)
-        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        if self.albu_transform:
+            image = cv2.imread(path)
+            image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        else:
+            image =  PIL.Image.open(path)
         target = self.targets[index]
         target = torch.LongTensor(target)
         if self.transform:
-            try:
+            if self.albu_transform:
                 augmented = self.transform(image=image)
                 image = augmented['image'] #albu
-            except: 
-                image = PIL.Image.fromarray(path)
+            else: 
                 image = self.transform(image) # torchvision
                 
         if self.target_transform:
