@@ -18,7 +18,7 @@ def focal_loss_ls(
         gamma: float = 2.0,
         reduction: str = 'none',
         ls: float = 0.1,
-        classes: int = 40,
+        classes: int = 2,
         eps: float = 1e-8) -> torch.Tensor:
     """Function that computes Focal loss with Label Smoothing.
     """
@@ -91,7 +91,7 @@ class FocalLossLS(nn.Module):
         [1] https://arxiv.org/abs/1708.02002
     """
     def __init__(self, alpha: float, gamma: float = 2.0,
-                 reduction: str = 'none', ls:float = 0.1, classes: int = 40) -> None:
+                 reduction: str = 'none', ls:float = 0.1, classes: int = 2) -> None:
         super(FocalLossLS, self).__init__()
         if ls > 0:
             self.name = 'FLLS'

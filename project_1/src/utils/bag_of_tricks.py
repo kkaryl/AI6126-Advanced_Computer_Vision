@@ -1,6 +1,7 @@
 from __future__ import print_function
 import torch
 import torch.nn as nn
+import numpy as np
 
 __all__ = ['add_weight_decay', 'mixup_data']
 
