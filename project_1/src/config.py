@@ -25,11 +25,11 @@ disable_tqdm = True
 auto_hibernate = True
 
 # optimization
-train_batch = 128 #256
+train_batch = 100 #256
 dl_workers = 8
-test_batch = 128 #128
+test_batch = 100 #128
 epochs = 80 #60
-lr = 0.0001 #0.1
+lr = 0.01 #0.1
 lr_decay = 'step' #step, cos, linear, linear2exp, schedule
 step = 30 # interval for learning rate decay in step mode
 schedule = [30, 35, 40, 45, 50, 55, 56, 57, 58, 59, 60] # decrease learning rate at these epochs [150, 225]
@@ -51,7 +51,7 @@ es_min = 30 # minimum patience
 es_patience = 10 
 
 # Checkpoints and loggers
-ckp_resume = join(CHECKPOINT_DIR, 'checkpoint.pth.tar') #path to latest checkpoint (default: none) #join(CHECKPOINT_DIR, 'checkpoint.pth.tar')
+ckp_resume = '' #path to latest checkpoint (default: none) #join(CHECKPOINT_DIR, 'checkpoint.pth.tar')
 ckp_logger_fname = join(CHECKPOINT_DIR, 'log.txt')
 checkpoint_fname = join(CHECKPOINT_DIR, 'checkpoint.pth.tar')
 bestmodel_fname = join(CHECKPOINT_DIR, 'model_best.pth.tar')
@@ -61,7 +61,7 @@ train_saveplot = True
 test_preds_fname = join(CHECKPOINT_DIR, 'test_preds.json')
 
 # Architecture
-arch = 'FaceAttrResNet' # #model architecture FaceAttrResNet FaceAttrMobileNetV2 FaceAttrResNeXt
+arch = 'FaceAttrMobileNetV2' # #model architecture FaceAttrResNet FaceAttrMobileNetV2 FaceAttrResNeXt
 pt_layers = 50 # 34, 50 18
 cardinality = 32 #ResNeXt model cardinality (group)
 base_width = 4 #ResNeXt model base width (number of channels in each group)
