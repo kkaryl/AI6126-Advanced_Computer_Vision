@@ -17,19 +17,16 @@ INFERENCE_DIR: str = 'inf'
 # Miscs
 manual_seed = 42 #1903
 evaluate = False
-# world_size = 1 #number of distributed processes?
-# dist_url = 'tcp://224.66.41.62:23456' #url used to set up distributed training
-# dist_backend = 'gloo'
 gpu_id = '0'
 disable_tqdm = True
 auto_hibernate = True
 
 # optimization
-train_batch = 128 #256
+train_batch = 100 #256
 dl_workers = 8
-test_batch = 128 #128
+test_batch = 100 #128
 epochs = 80 #60
-lr = 0.0001 #0.1
+lr = 0.01 #0.1, 0.01
 lr_decay = 'step' #step, cos, linear, linear2exp, schedule
 step = 30 # interval for learning rate decay in step mode
 schedule = [30, 35, 40, 45, 50, 55, 56, 57, 58, 59, 60] # decrease learning rate at these epochs [150, 225]
@@ -40,9 +37,9 @@ weight_decay = 1e-4  #1e-4
 criterion = 'FocalLoss' #FocalLoss CE
 optimizer = 'SGD' #SGD, Adam, AdamW
 scheduler = 'ReduceLROnPlateau' #Manual ReduceLROnPlateau OneCycleLR CosineWarmupLR
-patience = 5 # ReduceLROnPlateau
-no_bias_bn_decay = True
-label_smoothing = 0 # 0 to turn off, 0.1 (default)
+patience = 5 # patience for ReduceLROnPlateau scheduler
+no_bias_bn_decay = True # Turn off bias decay (default: True)
+label_smoothing = 0.1 # 0 to turn off, 0.1 (default)
 mixed_up = 0.2 # mixedup alpha value: 0 to turn off, 0.2 (default)
 
 # Early Stopping
@@ -51,7 +48,7 @@ es_min = 30 # minimum patience
 es_patience = 10 
 
 # Checkpoints and loggers
-ckp_resume = join(CHECKPOINT_DIR, 'checkpoint.pth.tar') #path to latest checkpoint (default: none) #join(CHECKPOINT_DIR, 'checkpoint.pth.tar')
+ckp_resume = '' #path to latest checkpoint (default: none) #join(CHECKPOINT_DIR, 'checkpoint.pth.tar')
 ckp_logger_fname = join(CHECKPOINT_DIR, 'log.txt')
 checkpoint_fname = join(CHECKPOINT_DIR, 'checkpoint.pth.tar')
 bestmodel_fname = join(CHECKPOINT_DIR, 'model_best.pth.tar')
@@ -61,8 +58,5 @@ train_saveplot = True
 test_preds_fname = join(CHECKPOINT_DIR, 'test_preds.json')
 
 # Architecture
-arch = 'FaceAttrResNet' # #model architecture FaceAttrResNet FaceAttrMobileNetV2 FaceAttrResNeXt
-pt_layers = 50 # 34, 50 18
-cardinality = 32 #ResNeXt model cardinality (group)
-base_width = 4 #ResNeXt model base width (number of channels in each group)
-groups = 3 #ShuffleNet model groups
+arch = 'FaceAttrMobileNetV2' # #model architecture: FaceAttrResNet FaceAttrMobileNetV2 FaceAttrResNeXt
+pt_layers = 50 # 18, 34, 50

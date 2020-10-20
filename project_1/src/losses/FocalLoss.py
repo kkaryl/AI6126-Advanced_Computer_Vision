@@ -19,7 +19,7 @@ def focal_loss_ls(
         reduction: str = 'none',
         ls: float = 0.1,
         classes: int = 2,
-        eps: float = 1e-8) -> torch.Tensor:
+        eps: float = 1e-10) -> torch.Tensor:
     """Function that computes Focal loss with Label Smoothing.
     """
     if not torch.is_tensor(pred):
@@ -44,14 +44,14 @@ def focal_loss_ls(
         raise ValueError(
             "pred and target must be in the same device. Got: {} and {}" .format(
                 pred.device, target.device))
-
-    # new: label smoothing
-    if ls > 0:
-        pred_ls = (1 - ls) * pred + ls / classes
-        pred = torch.clamp(pred_ls, eps, 1.0-eps)
     
     # compute softmax over the classes axis
     pred_soft: torch.Tensor = F.softmax(pred, dim=1) + eps
+        
+    # new: label smoothing
+    if ls > 0:
+        pred_ls = (1 - ls) * pred_soft + ls / classes
+        pred_soft = torch.clamp(pred_ls, eps, 1.0-eps)    
 
     # create the labels one hot tensor
     target_one_hot: torch.Tensor = one_hot(
@@ -102,7 +102,7 @@ class FocalLossLS(nn.Module):
         self.reduction: str = reduction
         self.ls: float = ls
         self.classes: int = classes
-        self.eps: float = 1e-6
+        self.eps: float = 1e-10
         
     def forward(self, pred: torch.Tensor, target: torch.Tensor) -> torch.Tensor:
         return focal_loss_ls(pred, target, self.alpha, self.gamma, self.reduction, self.ls, self.classes, self.eps)
