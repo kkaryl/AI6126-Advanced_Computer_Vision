@@ -63,6 +63,13 @@ class FaceAttrResNet(nn.Module):
                     nn.Sequential(FC_Block(pt_out, pt_out // 2),
                                   nn.Linear(pt_out // 2, 2)))
         self.name = 'FaceAttrResNet_'+str(resnet_layers)
+        
+        for m in self.modules():
+            if isinstance(m, nn.Conv2d):
+                nn.init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
+            elif isinstance(m, nn.BatchNorm2d):
+                nn.init.constant_(m.weight, 1)
+                nn.init.constant_(m.bias, 0)
 
     def forward(self, x):
         x = self.pretrained(x)

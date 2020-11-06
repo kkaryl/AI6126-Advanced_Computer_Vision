@@ -20,3 +20,5 @@ project_1/pulse_extender.bat
 project_1/src/inf/
 
 project_1/.scripts/
+
+project_1/src/schedulers/__pycache__/

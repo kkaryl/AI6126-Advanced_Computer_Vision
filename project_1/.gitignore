@@ -1,6 +1,8 @@
 data/
 .ignore/
 .testing/
+src/.tmp/
 src/checkpoints/
 src/runs/
 src/backups/
+src/final_submission/

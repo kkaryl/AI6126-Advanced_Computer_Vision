@@ -17,25 +17,25 @@ eyes, smiling).
 ## Submission Guideline
 Students should improve the classification accuracy of their network models.
 -[x] Download dataset [[1]], use the images in “img_align_celeba.zip” as well as the attribute labels.
--[ ] Train your network using the training set of CelebA.
--[ ] Tune the hyper-parameters using the validation set of CelebA.
--[ ] Submit predictions of the test set for evaluations and ranking in the mini challenge leaderboard. The test set will be available one week before the deadline.
--[ ] No external data are allowed in this mini challenge. Only ImageNet pre-trained models are allowed.
--[ ] You should not use an ensemble of models.
+-[x] Train your network using the training set of CelebA.
+-[x] Tune the hyper-parameters using the validation set of CelebA.
+-[x] Submit predictions of the test set for evaluations and ranking in the mini challenge leaderboard. The test set will be available one week before the deadline.
+-[x] No external data are allowed in this mini challenge. Only ImageNet pre-trained models are allowed.
+-[x] You should not use an ensemble of models.
 
 ## Submission Items
--[ ] Short report not more than five A4 pages (Arial 10 font) to describe:
-    - [ ] Model used
-    - [ ] Loss functions
-    - [ ] Any processing or operations used to obtain results
-    - [ ] Accuracy of each attribute and average accuracy obtained
--[ ] Folder containing:
-    - [ ] Predictions of the test set
-    - [ ] Codes for training and testing of model
--[ ] Readme.txt containing:
-    - [ ] Description of the files you have submitted
-    - [ ] References to the third party libraries
-    - [ ] Details to run and test solution
+-[x] Short report not more than five A4 pages (Arial 10 font) to describe:
+    - [x] Model used
+    - [x] Loss functions
+    - [x] Any processing or operations used to obtain results
+    - [x Accuracy of each attribute and average accuracy obtained
+-[x] Folder containing:
+    - [x] Predictions of the test set
+    - [x] Codes for training and testing of model
+-[x] Readme.txt containing:
+    - [x] Description of the files you have submitted
+    - [x] References to the third party libraries
+    - [x] Details to run and test solution
     
 ## Tips
 Refer to [[2]] to get started.
@@ -46,7 +46,7 @@ Techniques to improve recognition accuracy:
 
 ## References 
 [1]: <http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html>
-[2]: https://github.com/d-li14/face-attribute-prediction 
+[2]: https://github.com/d-li14/face-attribute-prediction
 \[1\]: Z. Liu et al. Deep Learning Face Attributes in the Wild, ICCV 2015
 
 \[2\]: Face attribute prediction 
