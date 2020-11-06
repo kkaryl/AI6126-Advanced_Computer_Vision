@@ -19,7 +19,7 @@ def focal_loss_ls(
         reduction: str = 'none',
         ls: float = 0.1,
         classes: int = 2,
-        eps: float = 1e-10) -> torch.Tensor:
+        eps: float = 1e-8) -> torch.Tensor:
     """Function that computes Focal loss with Label Smoothing.
     """
     if not torch.is_tensor(pred):
@@ -102,7 +102,7 @@ class FocalLossLS(nn.Module):
         self.reduction: str = reduction
         self.ls: float = ls
         self.classes: int = classes
-        self.eps: float = 1e-10
+        self.eps: float = 1e-8
         
     def forward(self, pred: torch.Tensor, target: torch.Tensor) -> torch.Tensor:
         return focal_loss_ls(pred, target, self.alpha, self.gamma, self.reduction, self.ls, self.classes, self.eps)

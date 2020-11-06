@@ -39,7 +39,7 @@ optimizer = 'SGD' #SGD, Adam, AdamW
 scheduler = 'ReduceLROnPlateau' #Manual ReduceLROnPlateau OneCycleLR CosineWarmupLR
 patience = 5 # patience for ReduceLROnPlateau scheduler
 no_bias_bn_decay = True # Turn off bias decay (default: True)
-label_smoothing = 0.1 # 0 to turn off, 0.1 (default)
+label_smoothing = 0 # 0 to turn off, 0.1 (default)
 mixed_up = 0.2 # mixedup alpha value: 0 to turn off, 0.2 (default)
 
 # Early Stopping

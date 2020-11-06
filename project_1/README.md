@@ -19,18 +19,18 @@ Students should improve the classification accuracy of their network models.
 -[x] Download dataset [[1]], use the images in “img_align_celeba.zip” as well as the attribute labels.
 -[x] Train your network using the training set of CelebA.
 -[x] Tune the hyper-parameters using the validation set of CelebA.
--[ ] Submit predictions of the test set for evaluations and ranking in the mini challenge leaderboard. The test set will be available one week before the deadline.
+-[x] Submit predictions of the test set for evaluations and ranking in the mini challenge leaderboard. The test set will be available one week before the deadline.
 -[x] No external data are allowed in this mini challenge. Only ImageNet pre-trained models are allowed.
 -[x] You should not use an ensemble of models.
 
 ## Submission Items
--[ ] Short report not more than five A4 pages (Arial 10 font) to describe:
-    - [ ] Model used
-    - [ ] Loss functions
-    - [ ] Any processing or operations used to obtain results
-    - [ ] Accuracy of each attribute and average accuracy obtained
--[ ] Folder containing:
-    - [ ] Predictions of the test set
+-[x] Short report not more than five A4 pages (Arial 10 font) to describe:
+    - [x] Model used
+    - [x] Loss functions
+    - [x] Any processing or operations used to obtain results
+    - [x Accuracy of each attribute and average accuracy obtained
+-[x] Folder containing:
+    - [x] Predictions of the test set
     - [x] Codes for training and testing of model
 -[x] Readme.txt containing:
     - [x] Description of the files you have submitted
