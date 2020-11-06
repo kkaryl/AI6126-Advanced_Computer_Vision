@@ -1,0 +1,6 @@
+data/DIV2K/
+venv/
+.ignore/
+.testing/
+
+src/BasicSR/experiments
