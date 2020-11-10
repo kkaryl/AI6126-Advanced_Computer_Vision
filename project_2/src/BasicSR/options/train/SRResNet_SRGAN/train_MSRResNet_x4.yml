@@ -64,7 +64,7 @@ path:
 train:
   use_cutblur:
     prob: 0.5
-    alpha: 0.2
+    alpha: 0.7
   use_rgb_perm:
     prob: 0
 
