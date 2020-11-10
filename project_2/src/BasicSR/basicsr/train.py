@@ -168,6 +168,7 @@ def main(opt=None):
         current_iter = resume_state['iter']
     else:
         model = create_model(opt)
+        #logger.info(f"Num of parameters in model: \t {sum(p.numel() for p in model.parameters())}.")
         start_epoch = 0
         current_iter = 0
 

@@ -1,5 +1,6 @@
 data/DIV2K/
 venv/
+venv_mmedit/
 .ignore/
 .testing/
 

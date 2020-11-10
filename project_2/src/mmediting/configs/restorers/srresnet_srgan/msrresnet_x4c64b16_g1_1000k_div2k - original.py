@@ -22,12 +22,12 @@ val_dataset_type = 'SRFolderDataset'
 train_pipeline = [
     dict(
         type='LoadImageFromFile',
-        io_backend='imdb',
+        io_backend='disk',
         key='lq',
         flag='unchanged'),
     dict(
         type='LoadImageFromFile',
-        io_backend='imdb',
+        io_backend='disk',
         key='gt',
         flag='unchanged'),
     dict(type='RescaleToZeroOne', keys=['lq', 'gt']),
@@ -78,9 +78,9 @@ data = dict(
         times=1000,
         dataset=dict(
             type=train_dataset_type,
-            lq_folder='../../data/DIV2K/Train/LR_x4_sub.lmdb',
-            gt_folder='../../data/DIV2K/Train/HR_sub.lmdb',
-            ann_file='../../data/DIV2K/Train/HR_sub.lmdb/meta_info.txt',
+            lq_folder='data/DIV2K/DIV2K_train_LR_bicubic/X4_sub',
+            gt_folder='data/DIV2K/DIV2K_train_HR_sub',
+            ann_file='data/DIV2K/meta_info_DIV2K800sub_GT.txt',
             pipeline=train_pipeline,
             scale=scale)),
     # val
@@ -88,16 +88,16 @@ data = dict(
     val_workers_per_gpu=1,
     val=dict(
         type=val_dataset_type,
-        lq_folder='../../data/DIV2K/Val/LR_x4',
-        gt_folder='../../data/DIV2K/Val/HR',
+        lq_folder='./data/val_set5/Set5_bicLRx4',
+        gt_folder='./data/val_set5/Set5',
         pipeline=test_pipeline,
         scale=scale,
         filename_tmpl='{}'),
     # test
     test=dict(
         type=val_dataset_type,
-        lq_folder='../../data/DIV2K/Val/LR_x4',
-        gt_folder='../../data/DIV2K/Val/HR',
+        lq_folder='./data/val_set5/Set5_bicLRx4',
+        gt_folder='./data/val_set5/Set5',
         pipeline=test_pipeline,
         scale=scale,
         filename_tmpl='{}'))
