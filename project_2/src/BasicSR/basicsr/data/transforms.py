@@ -1,7 +1,6 @@
 import cv2
 import random
 
-
 def mod_crop(img, scale):
     """Mod crop images, used during testing.
 

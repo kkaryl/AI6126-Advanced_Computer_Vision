@@ -58,10 +58,16 @@ network_g:
 path:
   pretrain_network_g: ~
   strict_load_g: true
-  resume_state: ~
+  resume_state: experiments/101_EDSR_Mx4_f64b16_DIV2K_1000k_B16G1/training_states/95000.state #~
 
 # training settings
 train:
+  use_cutblur:
+    prob: 0.5
+    alpha: 0.2
+  use_rgb:
+    prob: 0
+
   optim_g:
     type: Adam
     lr: !!float 1e-4

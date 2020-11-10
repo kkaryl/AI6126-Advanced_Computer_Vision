@@ -5,3 +5,4 @@ venv_mmedit/
 .testing/
 
 src/BasicSR/experiments
+src/BasicSR/tb_logger
