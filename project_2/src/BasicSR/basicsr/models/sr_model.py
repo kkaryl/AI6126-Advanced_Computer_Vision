@@ -8,6 +8,7 @@ from tqdm import tqdm
 from basicsr.models.archs import define_network
 from basicsr.models.base_model import BaseModel
 from basicsr.utils import get_root_logger, imwrite, tensor2img
+import src.BasicSR.basicsr.data.augments as augments
 
 loss_module = importlib.import_module('basicsr.models.losses')
 metric_module = importlib.import_module('basicsr.metrics')
@@ -84,6 +85,12 @@ class SRModel(BaseModel):
         self.lq = data['lq'].to(self.device)
         if 'gt' in data:
             self.gt = data['gt'].to(self.device)
+
+        train_opt = self.opt['train']
+        if train_opt.get('use_cutblur', False):
+            self.gt, self.lq = augments.cutblur(self.gt, self.lq, **train_opt['use_cutblur'])
+        if train_opt.get('use_rgb_perm', False):
+            self.gt, self.lq = augments.rgb(self.gt, self.lq, **train_opt['use_rgb_perm'])
 
     def optimize_parameters(self, current_iter):
         self.optimizer_g.zero_grad()
