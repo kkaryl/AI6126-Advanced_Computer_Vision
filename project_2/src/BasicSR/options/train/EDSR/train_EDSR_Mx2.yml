@@ -1,5 +1,5 @@
 # general settings
-name: 201_EDSR_Mx2_f64b16_DIV2K_300k_B16G1_wandb
+name: 201_EDSR_Mx2_f64b16_DIV2K_300k_B16G1
 model_type: SRModel
 scale: 2
 num_gpu: 1  # set num_gpu: 0 for cpu mode
@@ -10,14 +10,14 @@ datasets:
   train:
     name: DIV2K
     type: PairedImageDataset
-    dataroot_gt: datasets/DIV2K/DIV2K_train_HR_sub
-    dataroot_lq: datasets/DIV2K/DIV2K_train_LR_bicubic/X2_sub
+    dataroot_gt: ../../data/DIV2K/Train/HR_sub.lmdb
+      dataroot_lq: ../../data/DIV2K/Train/LR_x2_sub.lmdb
     # (for lmdb)
     # dataroot_gt: datasets/DIV2K/DIV2K_train_HR_sub.lmdb
     # dataroot_lq: datasets/DIV2K/DIV2K_train_LR_bicubic_X2_sub.lmdb
     filename_tmpl: '{}'
     io_backend:
-      type: disk
+      type: lmdb
       # (for lmdb)
       # type: lmdb
 
@@ -33,10 +33,10 @@ datasets:
     prefetch_mode: ~
 
   val:
-    name: Set5
+    name: DIV2KTest
     type: PairedImageDataset
-    dataroot_gt: datasets/Set5/GTmod12
-    dataroot_lq: datasets/Set5/LRbicx2
+    dataroot_gt: ../../data/DIV2K/Val/HR
+    dataroot_lq: ../../data/DIV2K/Val/LR_x2
     io_backend:
       type: disk
 

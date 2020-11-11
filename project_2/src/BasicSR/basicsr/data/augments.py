@@ -21,15 +21,19 @@ def cutblur(im1, im2, prob=1.0, alpha=1.0):
 
     cut_ratio = np.random.randn() * 0.01 + alpha
 
+
     h, w = im2.size(2), im2.size(3)
     ch, cw = np.int(h*cut_ratio), np.int(w*cut_ratio)
+    #print(cut_ratio, ch, cw)
     cy = np.random.randint(0, h-ch+1)
     cx = np.random.randint(0, w-cw+1)
 
     # apply CutBlur to inside or outside
     if np.random.random() > 0.5:
+        #print("cut inside")
         im2[..., cy:cy+ch, cx:cx+cw] = im1[..., cy:cy+ch, cx:cx+cw]
     else:
+        #print("cut outside")
         im2_aug = im1.clone()
         im2_aug[..., cy:cy+ch, cx:cx+cw] = im2[..., cy:cy+ch, cx:cx+cw]
         im2 = im2_aug

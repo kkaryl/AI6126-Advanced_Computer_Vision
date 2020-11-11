@@ -1,7 +1,7 @@
 # general settings
-name: 101_EDSR_Mx4_f64b16_DIV2K_1000k_B16G1
+name: 201_EDSR_Mx2_f64b16_DIV2K_300k_B16G1_wandb
 model_type: SRModel
-scale: 4
+scale: 2
 num_gpu: 1  # set num_gpu: 0 for cpu mode
 manual_seed: 10
 
@@ -10,35 +10,33 @@ datasets:
   train:
     name: DIV2K
     type: PairedImageDataset
-    dataroot_gt: ../../data/DIV2K/Train/HR_sub.lmdb
-    dataroot_lq: ../../data/DIV2K/Train/LR_x4_sub.lmdb
-#    dataroot_gt: datasets/DIV2K/DIV2K_train_HR_sub
-#    dataroot_lq: datasets/DIV2K/DIV2K_train_LR_bicubic/X4_sub
+    dataroot_gt: datasets/DIV2K/DIV2K_train_HR_sub
+    dataroot_lq: datasets/DIV2K/DIV2K_train_LR_bicubic/X2_sub
     # (for lmdb)
     # dataroot_gt: datasets/DIV2K/DIV2K_train_HR_sub.lmdb
-    # dataroot_lq: datasets/DIV2K/DIV2K_train_LR_bicubic_X4_sub.lmdb
+    # dataroot_lq: datasets/DIV2K/DIV2K_train_LR_bicubic_X2_sub.lmdb
     filename_tmpl: '{}'
     io_backend:
-      type: lmdb
+      type: disk
       # (for lmdb)
       # type: lmdb
 
-    gt_size: 192
+    gt_size: 96
     use_flip: true
     use_rot: true
 
     # data loader
     use_shuffle: true
-    num_worker_per_gpu: 8
+    num_worker_per_gpu: 6
     batch_size_per_gpu: 16
     dataset_enlarge_ratio: 100
     prefetch_mode: ~
 
   val:
-    name: DIV2KTest
+    name: Set5
     type: PairedImageDataset
-    dataroot_gt: ../../data/DIV2K/Val/HR
-    dataroot_lq: ../../data/DIV2K/Val/LR_x4
+    dataroot_gt: datasets/Set5/GTmod12
+    dataroot_lq: datasets/Set5/LRbicx2
     io_backend:
       type: disk
 
@@ -49,7 +47,7 @@ network_g:
   num_out_ch: 3
   num_feat: 64
   num_block: 16
-  upscale: 4
+  upscale: 2
   res_scale: 1
   img_range: 255.
   rgb_mean: [0.4488, 0.4371, 0.4040]
@@ -58,16 +56,10 @@ network_g:
 path:
   pretrain_network_g: ~
   strict_load_g: true
-  resume_state: experiments/101_EDSR_Mx4_f64b16_DIV2K_1000k_B16G1/training_states/95000.state #~
+  resume_state: ~
 
 # training settings
 train:
-  use_cutblur:
-    prob: 0.5
-    alpha: 0.7
-  use_rgb:
-    prob: 0
-
   optim_g:
     type: Adam
     lr: !!float 1e-4
@@ -79,7 +71,7 @@ train:
     milestones: [200000]
     gamma: 0.5
 
-  total_iter: 1000000
+  total_iter: 300000
   warmup_iter: -1  # no warm up
 
   # losses
@@ -96,7 +88,7 @@ val:
   metrics:
     psnr: # metric name, can be arbitrary
       type: calculate_psnr
-      crop_border: 4
+      crop_border: 2
       test_y_channel: false
 
 # logging settings
