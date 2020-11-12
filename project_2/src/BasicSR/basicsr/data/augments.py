@@ -7,6 +7,12 @@ import random
     https://arxiv.org/pdf/2004.00448.pdf
     https://github.com/clovaai/cutblur/
 """
+def match_resolution(im1, im2):
+    if im1.size() != im2.size():
+        scale = im1.size(2) // im2.size(2)
+        im2 = F.interpolate(im2, scale_factor=scale, mode="bilinear")
+    return im1, im2
+
 def cutblur(im1, im2, prob=1.0, alpha=1.0):
     if alpha <= 0 or np.random.rand(1) >= prob:
         return im1, im2
