@@ -1,5 +1,5 @@
 # general settings
-name: 101_EDSR_Mx4_f64b16_DIV2K_1000k_B16G1
+name: 101_EDSR_Mx4_f64b16_DIV2K_500k_B16G1_Mx2
 model_type: SRModel
 scale: 4
 num_gpu: 1  # set num_gpu: 0 for cpu mode
@@ -56,15 +56,15 @@ network_g:
 
 # path
 path:
-  pretrain_network_g: ~
-  strict_load_g: true
-  resume_state: experiments/101_EDSR_Mx4_f64b16_DIV2K_1000k_B16G1/training_states/95000.state #~
+  pretrain_network_g: experiments/201_EDSR_Mx2_f64b16_DIV2K_300k_B16G1/models/net_g_300000.pth
+  strict_load_g: false #true
+  resume_state: ~ #experiments/101_EDSR_Mx4_f64b16_DIV2K_1000k_B16G1/training_states/95000.state #~
 
 # training settings
 train:
   use_cutblur:
-    prob: 0.5
-    alpha: 0.7
+    prob: 0
+    alpha: 1
   use_rgb:
     prob: 0
 
@@ -79,7 +79,7 @@ train:
     milestones: [200000]
     gamma: 0.5
 
-  total_iter: 1000000
+  total_iter: 500000
   warmup_iter: -1  # no warm up
 
   # losses
