@@ -91,6 +91,8 @@ class SRModel(BaseModel):
             self.gt, self.lq = augments.cutblur(self.gt, self.lq, **train_opt['use_cutblur'])
         if train_opt.get('use_rgb_perm', False):
             self.gt, self.lq = augments.rgb(self.gt, self.lq, **train_opt['use_rgb_perm'])
+        if train_opt.get('upscale', False):
+            self.gt, self.lq = augments.match_resolution(self.gt, self.lq)
 
     def optimize_parameters(self, current_iter):
         self.optimizer_g.zero_grad()

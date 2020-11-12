@@ -3,7 +3,7 @@ import argparse
 
 def parse_args():
     parser = argparse.ArgumentParser(description="")
-    parser.add_argument('--opt', default='options/train/SRResNet_SRGAN/train_MSRResNet_x4.yml')
+    #parser.add_argument('--opt', default='options/train/SRResNet_SRGAN/train_MSRResNet_x4.yml')
     parser.add_argument('--opt', default='options/train/CARN/train_CARN_x4.yml')
     # parser.add_argument('--opt', default='options/train/EDSR/train_EDSR_Mx4.yml')
     parser.add_argument('--launcher', default='none')
