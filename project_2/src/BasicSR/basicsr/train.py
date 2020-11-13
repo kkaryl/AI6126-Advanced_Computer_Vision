@@ -128,7 +128,7 @@ def create_train_val_dataloader(opt, logger):
 
 def main(opt=None):
     if not opt:
-        # parse options, set distributed setting, set ramdom seed
+        # parse options, set distributed setting, set random seed
         opt = parse_options(is_train=True)
 
     torch.backends.cudnn.benchmark = True

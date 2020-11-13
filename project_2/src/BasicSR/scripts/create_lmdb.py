@@ -26,6 +26,12 @@ def create_lmdb_for_div2kp2():
     lmdb_path = '../../../data/DIV2K/Train/LR_x4_sub.lmdb'
     img_path_list, keys = prepare_keys_div2k(folder_path)
     make_lmdb_from_imgs(folder_path, lmdb_path, img_path_list, keys)
+
+    # LRx4 images
+    folder_path = '../../../data/DIV2K/Train/LR_x2_sub'
+    lmdb_path = '../../../data/DIV2K/Train/LR_x2_sub.lmdb'
+    img_path_list, keys = prepare_keys_div2k(folder_path)
+    make_lmdb_from_imgs(folder_path, lmdb_path, img_path_list, keys)
     
 
 def create_lmdb_for_div2k():

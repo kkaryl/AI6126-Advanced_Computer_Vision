@@ -1,23 +1,23 @@
 # general settings
-name: 206_EDSR_Lx4_f256b32_DIV2K_300k_B16G1_204pretrain_wandb
+name: 102_EDSR_Lx4_f256b32_DIV2K_1000k_B16G1
 model_type: SRModel
 scale: 4
 num_gpu: 1  # set num_gpu: 0 for cpu mode
-manual_seed: 10
+manual_seed: 42
 
 # dataset and data loader settings
 datasets:
   train:
     name: DIV2K
     type: PairedImageDataset
-    dataroot_gt: datasets/DIV2K/DIV2K_train_HR_sub
-    dataroot_lq: datasets/DIV2K/DIV2K_train_LR_bicubic/X4_sub
+    dataroot_gt: ../../data/DIV2K/Train/HR_sub.lmdb
+    dataroot_lq: ../../data/DIV2K/Train/LR_x4_sub.lmdb
     # (for lmdb)
     # dataroot_gt: datasets/DIV2K/DIV2K_train_HR_sub.lmdb
     # dataroot_lq: datasets/DIV2K/DIV2K_train_LR_bicubic_X4_sub.lmdb
     filename_tmpl: '{}'
     io_backend:
-      type: disk
+      type: lmdb
       # (for lmdb)
       # type: lmdb
 
@@ -33,10 +33,10 @@ datasets:
     prefetch_mode: ~
 
   val:
-    name: Set5
+    name: DIV2KTest
     type: PairedImageDataset
-    dataroot_gt: datasets/Set5/GTmod12
-    dataroot_lq: datasets/Set5/LRbicx4
+    dataroot_gt: ../../data/DIV2K/Val/HR
+    dataroot_lq: ../../data/DIV2K/Val/LR_x4
     io_backend:
       type: disk
 
@@ -54,8 +54,8 @@ network_g:
 
 # path
 path:
-  pretrain_network_g: experiments/204_EDSR_Lx2_f256b32_DIV2K_300k_B16G1_wandb/models/net_g_300000.pth
-  strict_load_g: false
+  pretrain_network_g: ~
+  strict_load_g: true
   resume_state: ~
 
 # training settings
@@ -71,7 +71,7 @@ train:
     milestones: [200000]
     gamma: 0.5
 
-  total_iter: 300000
+  total_iter: 1000000
   warmup_iter: -1  # no warm up
 
   # losses

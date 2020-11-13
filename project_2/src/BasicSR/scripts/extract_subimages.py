@@ -52,12 +52,12 @@ def main():
     extract_subimages(opt)
 
     # LRx2 images
-#     opt['input_folder'] = 'datasets/DIV2K/DIV2K_train_LR_bicubic/X2'
-#     opt['save_folder'] = 'datasets/DIV2K/DIV2K_train_LR_bicubic/X2_sub'
-#     opt['crop_size'] = 240
-#     opt['step'] = 120
-#     opt['thresh_size'] = 0
-#     extract_subimages(opt)
+    opt['input_folder'] = '../../../data/DIV2K/Train/LR_x2'
+    opt['save_folder'] = '../../../data/DIV2K/Train/LR_x2_sub'
+    opt['crop_size'] = 240
+    opt['step'] = 120
+    opt['thresh_size'] = 0
+    extract_subimages(opt)
 
     # LRx3 images
 #     opt['input_folder'] = 'datasets/DIV2K/DIV2K_train_LR_bicubic/X3'
