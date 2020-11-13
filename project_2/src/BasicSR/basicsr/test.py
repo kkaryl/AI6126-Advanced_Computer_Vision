@@ -10,9 +10,10 @@ from basicsr.utils import (get_env_info, get_root_logger, get_time_str,
 from basicsr.utils.options import dict2str
 
 
-def main():
-    # parse options, set distributed setting, set ramdom seed
-    opt = parse_options(is_train=False)
+def main(opt=None):
+    if not opt:
+        # parse options, set distributed setting, set random seed
+        opt = parse_options(is_train=False)
 
     torch.backends.cudnn.benchmark = True
     # torch.backends.cudnn.deterministic = True

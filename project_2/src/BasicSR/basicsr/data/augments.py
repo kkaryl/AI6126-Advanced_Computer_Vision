@@ -1,6 +1,6 @@
 import numpy as np
 import torch.nn.functional as F
-import random
+import torch
 
 """
     Rethinking Data Augmentation for Image Super-resolution (CVPR 2020)
@@ -10,7 +10,7 @@ import random
 def match_resolution(im1, im2):
     if im1.size() != im2.size():
         scale = im1.size(2) // im2.size(2)
-        im2 = F.interpolate(im2, scale_factor=scale, mode="bilinear")
+        im2 = F.interpolate(im2, scale_factor=scale, mode="nearest")
     return im1, im2
 
 def cutblur(im1, im2, prob=1.0, alpha=1.0):
@@ -58,6 +58,21 @@ def rgb(im1, im2, prob=1.0):
     im2 = im2[:, perm]
 
     return im1, im2
+
+def blend(im1, im2, prob=1.0, alpha=0.6):
+    if alpha <= 0 or np.random.rand(1) >= prob:
+        return im1, im2
+
+    c = torch.empty((im2.size(0), 3, 1, 1), device=im2.device).uniform_(0, 255)
+    rim2 = c.repeat((1, 1, im2.size(2), im2.size(3)))
+    rim1 = c.repeat((1, 1, im1.size(2), im1.size(3)))
+
+    v = np.random.uniform(alpha, 1)
+    im1 = v * im1 + (1-v) * rim1
+    im2 = v * im2 + (1-v) * rim2
+
+    return im1, im2
+
 
 # def _cutmix(im2, prob=1.0, alpha=1.0):
 #

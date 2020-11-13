@@ -29,6 +29,7 @@ def main():
     opt['dataset_enlarge_ratio'] = 1
 
     opt['use_cutblur'] = True
+    opt['use_blend'] = True
     opt['use_rgb_perm'] = True
 
     os.makedirs('tmp', exist_ok=True)
@@ -77,6 +78,20 @@ def main():
             torchvision.utils.save_image(
                 gt_rgb,
                 f'tmp/{i:03d}_gt_rgb.png',
+                nrow=nrow,
+                padding=padding,
+                normalize=False)
+        if opt['use_blend']:
+            gt_rgb, lq_rgb = augments.blend(gt, lq, prob=1, alpha=0.6)
+            torchvision.utils.save_image(
+                lq_rgb,
+                f'tmp/{i:03d}_lq_blend.png',
+                nrow=nrow,
+                padding=padding,
+                normalize=False)
+            torchvision.utils.save_image(
+                gt_rgb,
+                f'tmp/{i:03d}_gt_blend.png',
                 nrow=nrow,
                 padding=padding,
                 normalize=False)

@@ -2,7 +2,7 @@
 # Photo-Realistic Single Image Super-Resolution Using a Generative Adversarial Network
 
 # general settings
-name: 001_MSRResNet_x4_f64b16_DIV2K_1000k_B16G1_CutBlur
+name: 001_MSRResNet_x4_f64b16_DIV2K_1000k_B16G1_RGB_Blend
 model_type: SRModel
 scale: 4
 num_gpu: 1  # set num_gpu: 0 for cpu mode
@@ -67,6 +67,9 @@ train:
     alpha: 1
   use_rgb_perm:
     prob: 0.5
+  use_blend:
+    prob: 0.5
+    alpha: 0.6
 
   optim_g:
     type: Adam
@@ -85,9 +88,9 @@ train:
 
   # losses
   pixel_opt:
-    type: L1Loss
+    type: L1Loss #L1Loss CharbonnierLoss
     loss_weight: 1.0
-    reduction: mean
+    reduction: mean #sum
 
 # validation settings
 val:

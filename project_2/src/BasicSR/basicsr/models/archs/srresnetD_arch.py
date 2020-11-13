@@ -88,5 +88,6 @@ class MSRResNetD(nn.Module):
         out = self.conv_last(self.lrelu(self.conv_hr(out)))
         # base = F.interpolate(
         #     x, scale_factor=self.upscale, mode='bilinear', align_corners=False)
+        print(out.shape, x.shape)
         out += x
         return out
