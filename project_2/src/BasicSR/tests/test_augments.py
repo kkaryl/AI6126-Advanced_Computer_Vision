@@ -14,7 +14,7 @@ def main():
     opt['name'] = 'DIV2K'
     opt['type'] = 'PairedImageDataset'
     opt['dataroot_gt'] = '../../../data/DIV2K/Train/HR_sub.lmdb'
-    opt['dataroot_lq'] = '../../../data/DIV2K/Train/LR_x2_sub.lmdb'
+    opt['dataroot_lq'] = '../../../data/DIV2K/Train/LR_x4_sub.lmdb'
     opt['io_backend'] = dict(type='lmdb')
 
     opt['gt_size'] = 128
@@ -24,13 +24,13 @@ def main():
     opt['use_shuffle'] = True
     opt['num_worker_per_gpu'] = 1
     opt['batch_size_per_gpu'] = 4
-    opt['scale'] = 2
+    opt['scale'] = 4
 
     opt['dataset_enlarge_ratio'] = 1
 
-    opt['use_cutblur'] = True
+    opt['use_cutblur'] = False
     opt['use_blend'] = True
-    opt['use_rgb_perm'] = True
+    opt['use_rgb_perm'] = False
 
     os.makedirs('tmp', exist_ok=True)
 
@@ -82,7 +82,7 @@ def main():
                 padding=padding,
                 normalize=False)
         if opt['use_blend']:
-            gt_rgb, lq_rgb = augments.blend(gt, lq, prob=1, alpha=0.6)
+            gt_rgb, lq_rgb = augments.blend(gt.clone(), lq.clone(), prob=0, alpha=0.6)
             torchvision.utils.save_image(
                 lq_rgb,
                 f'tmp/{i:03d}_lq_blend.png',

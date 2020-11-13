@@ -1,5 +1,6 @@
 import cv2
 import random
+import albumentations.augmentations.functional as AF
 
 def mod_crop(img, scale):
     """Mod crop images, used during testing.
@@ -82,6 +83,23 @@ def paired_random_crop(img_gts, img_lqs, gt_patch_size, scale, gt_path):
         img_lqs = img_lqs[0]
     return img_gts, img_lqs
 
+def albu_augment(imgs, brightness_contrast=True):
+    bright_con = brightness_contrast and random.random() < 0.5
+
+    def _augment(img):
+        if bright_con:
+            alpha = 1.0 + random.uniform(0.2, 0.2) #constrast limit
+            beta = 0.0 + random.uniform(0.2, 0.2) #brightness limit
+            img = AF.brightness_contrast_adjust(img, alpha, beta, beta_by_max = True)
+        return img
+
+    if not isinstance(imgs, list):
+        imgs = [imgs]
+    imgs = [_augment(img) for img in imgs]
+    if len(imgs) == 1:
+        imgs = imgs[0]
+
+    return imgs
 
 def augment(imgs, hflip=True, rotation=True, flows=None):
     """Augment: horizontal flips OR rotate (0, 90, 180, 270 degrees).
