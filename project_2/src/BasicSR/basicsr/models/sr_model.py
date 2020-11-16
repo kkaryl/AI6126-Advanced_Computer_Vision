@@ -85,17 +85,21 @@ class SRModel(BaseModel):
         self.lq = data['lq'].to(self.device)
         if 'gt' in data:
             self.gt = data['gt'].to(self.device)
+            #self.gt, self.lq = augments.match_resolution(self.gt, self.lq)
 
         if self.opt.get('train', False):
+            gt_aug, lq_aug = self.gt.clone(), self.lq.clone()
             train_opt = self.opt['train']
             if train_opt.get('use_cutblur', False):
-                self.gt, self.lq = augments.cutblur(self.gt, self.lq, **train_opt['use_cutblur'])
-            if train_opt.get('use_rgb_perm', False):
-                self.gt, self.lq = augments.rgb(self.gt, self.lq, **train_opt['use_rgb_perm'])
+                #gt_aug, lq_aug = augments.match_resolution(self.gt, self.lq)
+                gt_aug, lq_aug = augments.cutblur(gt_aug, lq_aug, **train_opt['use_cutblur'])
             if train_opt.get('use_blend', False):
-                self.gt, self.lq = augments.blend(self.gt, self.lq, **train_opt['use_blend'])
-            if train_opt.get('upscale', False):
-                self.gt, self.lq = augments.match_resolution(self.gt, self.lq)
+                gt_aug, lq_aug = augments.blend(gt_aug, lq_aug, **train_opt['use_blend'])
+            if train_opt.get('use_rgb_perm', False):
+                gt_aug, lq_aug = augments.rgb(gt_aug, lq_aug, **train_opt['use_rgb_perm'])
+            self.gt, self.lq = gt_aug, lq_aug
+
+
 
     def optimize_parameters(self, current_iter):
         self.optimizer_g.zero_grad()

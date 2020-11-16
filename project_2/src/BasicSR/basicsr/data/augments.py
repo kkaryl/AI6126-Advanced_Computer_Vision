@@ -1,3 +1,9 @@
+"""
+CutBlur
+Copyright 2020-present NAVER corp.
+MIT license
+"""
+
 import numpy as np
 import torch.nn.functional as F
 import torch
@@ -10,7 +16,7 @@ import torch
 def match_resolution(im1, im2):
     if im1.size() != im2.size():
         scale = im1.size(2) // im2.size(2)
-        im2 = F.interpolate(im2, scale_factor=scale, mode="nearest")
+        im2 = F.interpolate(im2, scale_factor=scale, mode="bilinear", align_corners=False)
     return im1, im2
 
 def cutblur(im1, im2, prob=1.0, alpha=1.0):
@@ -18,9 +24,10 @@ def cutblur(im1, im2, prob=1.0, alpha=1.0):
         return im1, im2
 
     # match the resolution of (LR, HR) due to CutBlur
-    if im1.size() != im2.size():
-        scale = im1.size(2) // im2.size(2)
-        im2 = F.interpolate(im2, scale_factor=scale, mode="nearest")
+    # if im1.size() != im2.size():
+    #     scale = im1.size(2) // im2.size(2)
+    #     im2 = F.interpolate(im2, scale_factor=scale, mode="nearest")
+    im1, im2 = match_resolution(im1, im2)
 
     if im1.size() != im2.size():
         raise ValueError("im1 and im2 have to be the same resolution.")
@@ -44,8 +51,8 @@ def cutblur(im1, im2, prob=1.0, alpha=1.0):
         im2_aug[..., cy:cy+ch, cx:cx+cw] = im2[..., cy:cy+ch, cx:cx+cw]
         im2 = im2_aug
 
-    # resize back
-    im2 = F.interpolate(im2, scale_factor=1/scale, mode="nearest")
+    ## resize back
+    #im2 = F.interpolate(im2, scale_factor=1/scale, mode="nearest")
 
     return im1, im2
 
@@ -63,7 +70,7 @@ def blend(im1, im2, prob=1.0, alpha=0.6):
     if alpha <= 0 or np.random.rand(1) >= prob:
         return im1, im2
 
-    c = torch.empty((im2.size(0), 3, 1, 1), device=im2.device).uniform_(0, 255)
+    c = torch.empty((im2.size(0), 3, 1, 1), device=im2.device).uniform_(0, 1)
     rim2 = c.repeat((1, 1, im2.size(2), im2.size(3)))
     rim1 = c.repeat((1, 1, im1.size(2), im1.size(3)))
 

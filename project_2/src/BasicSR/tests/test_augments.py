@@ -20,6 +20,7 @@ def main():
     opt['gt_size'] = 128
     opt['use_flip'] = True
     opt['use_rot'] = True
+    opt['use_bright_contrast'] = True
 
     opt['use_shuffle'] = True
     opt['num_worker_per_gpu'] = 1
@@ -54,7 +55,7 @@ def main():
         print(lq_path, gt_path)
 
         if opt['use_cutblur']:
-            gt_cutblur, lq_cutblur = augments.cutblur(gt, lq, prob=1, alpha=0.7)
+            gt_cutblur, lq_cutblur = augments.cutblur(gt.clone(), lq.clone(), prob=1, alpha=0.7)
             torchvision.utils.save_image(
                 lq_cutblur,
                 f'tmp/{i:03d}_lq_cutblur.png',
@@ -68,7 +69,7 @@ def main():
                 padding=padding,
                 normalize=False)
         if opt['use_rgb_perm']:
-            gt_rgb, lq_rgb = augments.rgb(gt, lq, prob=1)
+            gt_rgb, lq_rgb = augments.rgb(gt.clone(), lq.clone(), prob=1)
             torchvision.utils.save_image(
                 lq_rgb,
                 f'tmp/{i:03d}_lq_rgb.png',
@@ -82,7 +83,7 @@ def main():
                 padding=padding,
                 normalize=False)
         if opt['use_blend']:
-            gt_rgb, lq_rgb = augments.blend(gt.clone(), lq.clone(), prob=0, alpha=0.6)
+            gt_rgb, lq_rgb = augments.blend(gt.clone(), lq.clone(), prob=1, alpha=0.6)
             torchvision.utils.save_image(
                 lq_rgb,
                 f'tmp/{i:03d}_lq_blend.png',
