@@ -1,7 +1,6 @@
 data/DIV2K/
 data/PTest/
-data/Set5/
-data/Set14/
+data/*
 venv/
 venv_mmedit/
 .ignore/

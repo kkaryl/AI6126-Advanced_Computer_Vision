@@ -143,11 +143,11 @@ def imresize_np(img, scale, antialiasing=True):
 
 def generate_mod_LR_bic():
     # set parameters
-    up_scale = 2
-    mod_scale = 2
+    up_scale = 4
+    mod_scale = 4
     # set data dir
-    sourcedir = '../../../data/DIV2K/Val/HR'
-    savedir = '../../../data/DIV2K/Val/mod'
+    sourcedir = '../../../data/HR'
+    savedir = '../../../data/mod'
 
     saveHRpath = os.path.join(savedir, 'HR', 'x' + str(mod_scale))
     saveLRpath = os.path.join(savedir, 'LR', 'x' + str(up_scale))
@@ -201,11 +201,11 @@ def generate_mod_LR_bic():
         # LR
         image_LR = imresize_np(image_HR, 1 / up_scale, True)
         # bic
-        #image_Bic = imresize_np(image_LR, up_scale, True)
+        image_Bic = imresize_np(image_LR, up_scale, True)
 
-        #cv2.imwrite(os.path.join(saveHRpath, filename), image_HR)
+        cv2.imwrite(os.path.join(saveHRpath, filename), image_HR)
         cv2.imwrite(os.path.join(saveLRpath, filename), image_LR)
-        #cv2.imwrite(os.path.join(saveBicpath, filename), image_Bic)
+        cv2.imwrite(os.path.join(saveBicpath, filename), image_Bic)
 
 
 if __name__ == "__main__":

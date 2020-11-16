@@ -12,8 +12,8 @@ def parse_args(train=True):
         # parser.add_argument('--opt', default='options/train/EDSR/train_EDSR_Mx2.yml')
         # parser.add_argument('--opt', default='options/train/SRResNet_SRGAN/train_MSRResNetD_x4.yml')
     else:
-        #parser.add_argument('--opt', default='options/test/SRResNet_SRGAN/test_MSRResNet_x4.yml')
-        parser.add_argument('--opt', default='options/test/CARN/test_CARN_x4.yml')
+        parser.add_argument('--opt', default='options/test/SRResNet_SRGAN/test_MSRResNet_x4.yml')
+        # parser.add_argument('--opt', default='options/test/CARN/test_CARN_x4.yml')
     parser.add_argument('--launcher', default='none')
     parser.add_argument('--local_rank', type=int, default=0)
     return parser

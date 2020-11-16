@@ -85,11 +85,11 @@ def paired_random_crop(img_gts, img_lqs, gt_patch_size, scale, gt_path):
 
 def albu_augment(imgs, brightness_contrast=True):
     bright_con = brightness_contrast and random.random() < 0.5
+    alpha = 1.0 + random.uniform(0.2, 0.2)  # contrast limit
+    beta = 0.0 + random.uniform(0.2, 0.2)  # brightness limit
 
     def _augment(img):
         if bright_con:
-            alpha = 1.0 + random.uniform(0.2, 0.2) #constrast limit
-            beta = 0.0 + random.uniform(0.2, 0.2) #brightness limit
             img = AF.brightness_contrast_adjust(img, alpha, beta, beta_by_max = True)
         return img
 
