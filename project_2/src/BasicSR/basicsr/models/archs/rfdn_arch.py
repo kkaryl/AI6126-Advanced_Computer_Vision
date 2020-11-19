@@ -53,7 +53,7 @@ class RFDB(nn.Module):
         self.c3_d = conv_layer(self.remaining_channels, self.dc, 1)
         self.c3_r = conv_layer(self.remaining_channels, self.rc, 3)
         self.c4 = conv_layer(self.remaining_channels, self.dc, 3)
-        self.act = nn.LeakyReLU(0.05, inplace=True) #activation('lrelu', neg_slope=0.05)
+        self.act = nn.LeakyReLU(0.05, inplace=True)
         self.c5 = conv_layer(self.dc*4, in_channels, 1)
         self.esa = ESA(in_channels, nn.Conv2d)
 
@@ -111,21 +111,17 @@ class RFDN(nn.Module):
                  num_in_ch,
                  num_out_ch,
                  num_feat=64,
-                 num_block=3,
-                 #num_group=3,
-                 upscale=4,
-                 #res_scale=1,
-                 img_range=255.,
-                 rgb_mean=(0.4488, 0.4371, 0.4040)):
+                 num_block=5,
+                 upscale=4):
         super(RFDN, self).__init__()
-        #self.num_group = num_group
-        self.img_range = img_range
         self.fea_conv = conv_layer(num_in_ch, num_feat, kernel_size=3)
 
         self.B1 = RFDB(in_channels=num_feat)
         self.B2 = RFDB(in_channels=num_feat)
         self.B3 = RFDB(in_channels=num_feat)
         self.B4 = RFDB(in_channels=num_feat)
+        self.B5 = RFDB(in_channels=num_feat)
+        #self.B6 = RFDB(in_channels=num_feat)
         self.c = conv_block(num_feat * num_block, num_feat, kernel_size=1)
 
         self.LR_conv = conv_layer(num_feat, num_feat, kernel_size=3)
@@ -140,12 +136,12 @@ class RFDN(nn.Module):
         out_B2 = self.B2(out_B1)
         out_B3 = self.B3(out_B2)
         out_B4 = self.B4(out_B3)
+        out_B5 = self.B5(out_B4)
+        #out_B6 = self.B6(out_B5)
 
-        out_B = self.c(torch.cat([out_B1, out_B2, out_B3, out_B4], dim=1))
+        out_B = self.c(torch.cat([out_B1, out_B2, out_B3, out_B4, out_B5], dim=1))
         out_lr = self.LR_conv(out_B) + out_fea
 
         output = self.exit(self.upsample(out_lr))
-        # output = self.upsample(out_lr)
-        # output = self.exit(output)
 
         return output

@@ -1,22 +1,22 @@
-name: 001_MSRResNet_x4_f64b16_DIV2K_3000k_B16G1_RGB
+name: 001_MSRResNet_x4_f64b16_DIV2K_1000k_B16G1
 model_type: SRModel
 scale: 4
 num_gpu: 1  # set num_gpu: 0 for cpu mode
 manual_seed: 0
 
 datasets:
-  test_1:  # the 1st test dataset
-    name: PrivateTest
-    type: SingleImageDataset
-    dataroot_lq: ../../data/PTest/LR
-    io_backend:
-      type: disk
-#  test_2:  # the 2nd test dataset
-#    name: Set5
+#  test_1:  # the 1st test dataset
+#    name: PrivateTest
 #    type: SingleImageDataset
-#    dataroot_lq: ../../data/Set5/LRbicx4
+#    dataroot_lq: ../../data/PTest/LR
 #    io_backend:
 #      type: disk
+  test_2:  # the 2nd test dataset
+    name: Report
+    type: SingleImageDataset
+    dataroot_lq: ../../data/Report/LR_x4_sub
+    io_backend:
+      type: disk
 #  test_3:  # the 3rd test dataset
 #    name: Set14
 #    type: SingleImageDataset
@@ -35,7 +35,8 @@ network_g:
 
 # path
 path:
-  pretrain_network_g: experiments/001_MSRResNet_x4_f64b16_DIV2K_3000k_B16G1_RGB/models/net_g_3000000.pth
+  pretrain_network_g: experiments/001_MSRResNet_x4_f64b16_DIV2K_1000k_B16G1/models/net_g_1000000.pth
+  #experiments/001_MSRResNet_x4_f64b16_DIV2K_3000k_B16G1_RGB/models/net_g_3000000.pth
   strict_load_g: true
 
 # validation settings

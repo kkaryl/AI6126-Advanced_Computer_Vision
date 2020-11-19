@@ -44,20 +44,20 @@ def main():
     opt['compression_level'] = 3
 
     # HR images
-    opt['input_folder'] = '../../../data/DIV2K/Train/HR' #'datasets/DIV2K/DIV2K_train_HR'
-    opt['save_folder'] = '../../../data/DIV2K/Train/HR_sub' #'datasets/DIV2K/DIV2K_train_HR_sub'
-    opt['crop_size'] = 480
-    opt['step'] = 240
-    opt['thresh_size'] = 0
-    extract_subimages(opt)
+    # opt['input_folder'] = '../../../data/DIV2K/Train/HR' #'datasets/DIV2K/DIV2K_train_HR'
+    # opt['save_folder'] = '../../../data/DIV2K/Train/HR_sub' #'datasets/DIV2K/DIV2K_train_HR_sub'
+    # opt['crop_size'] = 480
+    # opt['step'] = 240
+    # opt['thresh_size'] = 0
+    # extract_subimages(opt)
 
     # LRx2 images
-    opt['input_folder'] = '../../../data/DIV2K/Train/LR_x2'
-    opt['save_folder'] = '../../../data/DIV2K/Train/LR_x2_sub'
-    opt['crop_size'] = 240
-    opt['step'] = 120
-    opt['thresh_size'] = 0
-    extract_subimages(opt)
+    # opt['input_folder'] = '../../../data/DIV2K/Train/LR_x2'
+    # opt['save_folder'] = '../../../data/DIV2K/Train/LR_x2_sub'
+    # opt['crop_size'] = 240
+    # opt['step'] = 120
+    # opt['thresh_size'] = 0
+    # extract_subimages(opt)
 
     # LRx3 images
 #     opt['input_folder'] = 'datasets/DIV2K/DIV2K_train_LR_bicubic/X3'
@@ -68,10 +68,24 @@ def main():
 #     extract_subimages(opt)
 
     # LRx4 images
-    opt['input_folder'] = '../../../data/DIV2K/Train/LR_x4' #'datasets/DIV2K/DIV2K_train_LR_bicubic/X4'
-    opt['save_folder'] = '../../../data/DIV2K/Train/LR_x4_sub' #'datasets/DIV2K/DIV2K_train_LR_bicubic/X4_sub'
-    opt['crop_size'] = 120
-    opt['step'] = 60
+    # opt['input_folder'] = '../../../data/DIV2K/Train/LR_x4' #'datasets/DIV2K/DIV2K_train_LR_bicubic/X4'
+    # opt['save_folder'] = '../../../data/DIV2K/Train/LR_x4_sub' #'datasets/DIV2K/DIV2K_train_LR_bicubic/X4_sub'
+    # opt['crop_size'] = 120
+    # opt['step'] = 60
+    # opt['thresh_size'] = 0
+    # extract_subimages(opt)
+
+    opt['input_folder'] = '../../../data/Report/HR'
+    opt['save_folder'] = '../../../data/Report/HR_sub2'
+    opt['crop_size'] = 64 #480
+    opt['step'] = 16 #240
+    opt['thresh_size'] = 0
+    extract_subimages(opt)
+
+    opt['input_folder'] = '../../../data/Report/LR_x4'
+    opt['save_folder'] = '../../../data/Report/LR_x4_sub2'
+    opt['crop_size'] = 16 #120
+    opt['step'] = 4 #60
     opt['thresh_size'] = 0
     extract_subimages(opt)
 

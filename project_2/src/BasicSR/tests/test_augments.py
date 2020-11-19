@@ -31,7 +31,8 @@ def main():
 
     opt['use_cutblur'] = False
     opt['use_blend'] = True
-    opt['use_rgb_perm'] = False
+    opt['use_rgb_perm'] = True
+    opt['use_mixup'] = True
 
     os.makedirs('tmp', exist_ok=True)
 
@@ -93,6 +94,20 @@ def main():
             torchvision.utils.save_image(
                 gt_rgb,
                 f'tmp/{i:03d}_gt_blend.png',
+                nrow=nrow,
+                padding=padding,
+                normalize=False)
+        if opt['use_mixup']:
+            gt_rgb, lq_rgb = augments.mixup(gt.clone(), lq.clone(), prob=1, alpha=1.2)
+            torchvision.utils.save_image(
+                lq_rgb,
+                f'tmp/{i:03d}_lq_mixup.png',
+                nrow=nrow,
+                padding=padding,
+                normalize=False)
+            torchvision.utils.save_image(
+                gt_rgb,
+                f'tmp/{i:03d}_gt_mixup.png',
                 nrow=nrow,
                 padding=padding,
                 normalize=False)

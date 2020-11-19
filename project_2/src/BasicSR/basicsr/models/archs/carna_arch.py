@@ -80,7 +80,8 @@ class CARNA(nn.Module):
                  upscale=4,
                  res_scale=1,
                  img_range=255.,
-                 rgb_mean=(0.4488, 0.4371, 0.4040)):
+                 rgb_mean=(0.4488, 0.4371, 0.4040),
+                 upscale_lq=True):
         super(CARNA, self).__init__()
         self.num_group = num_group
         self.img_range = img_range

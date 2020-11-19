@@ -2,7 +2,7 @@
 # Photo-Realistic Single Image Super-Resolution Using a Generative Adversarial Network
 
 # general settings
-name: 302_RFDN_x4_f64_DIV2K_5000k_B16G1_RGB_BL
+name: 402_RFDN_x4_f64b5_DIV2K_5000k_B16G1_RGB_BL_MU
 model_type: SRModel
 scale: 4
 num_gpu: 1  # set num_gpu: 0 for cpu mode
@@ -51,13 +51,9 @@ network_g:
   type: RFDN
   num_in_ch: 3
   num_out_ch: 3
-  num_feat: 64
-  #num_group: 4
-  num_block: 4
+  num_feat: 80
+  num_block: 5
   upscale: 4
-  #res_scale: 1
-  img_range: 255.
-  rgb_mean: [ 0.4488, 0.4371, 0.4040 ]
 
 # path
 path:
@@ -71,10 +67,13 @@ train:
     prob: 0
     alpha: 0.7 #0.2
   use_rgb_perm:
-    prob: 0.5
+    prob: 0.2 #0.2
   use_blend:
-    prob: 0.5
+    prob: 0.2 #0.2
     alpha: 0.6
+  use_mixup:
+    prob: 0.2
+    alpha: 1.2
 
   optim_g:
     type: Adam

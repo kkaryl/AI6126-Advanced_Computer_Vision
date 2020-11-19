@@ -1,4 +1,4 @@
-name: 302_CARN_x4_f64_DIV2K_3000k_B16G1_RGB
+name: 302_CARN_x4_f64_DIV2K_5000k_B16G1_RGB_BL_MU
 model_type: SRModel
 scale: 4
 num_gpu: 1  # set num_gpu: 0 for cpu mode
@@ -6,34 +6,48 @@ manual_seed: 0
 
 datasets:
   test_1: # the 1st test dataset
+    name: DIV2KVal
+    type: PairedImageDataset
+    dataroot_gt: ../../data/DIV2K/Val/HR
+    dataroot_lq: ../../data/DIV2K/Val/LR_x4
+    io_backend:
+      type: disk
+  test_2: # the 1st test dataset
     name: Set5
     type: PairedImageDataset
-    dataroot_gt: ../../data/Set5/HR
-    dataroot_lq: ../../data/Set5/LR
+    dataroot_gt: ../../data/Original/Set5/GTmod12
+    dataroot_lq: ../../data/Original/Set5/LRbicx4
     io_backend:
       type: disk
-  test_2: # the 2nd test dataset
-    name: BSDS300
-    type: PairedImageDataset
-    dataroot_gt: ../../data/BSDS300/HR
-    dataroot_lq: ../../data/BSDS300/LR
-    io_backend:
-      type: disk
-  test_3:
-    name: manga109
-    type: PairedImageDataset
-    dataroot_gt: ../../data/manga109/HR
-    dataroot_lq: ../../data/manga109/LR
-    io_backend:
-      type: disk
-  test_4:
-    name: urban100
-    type: PairedImageDataset
-    dataroot_gt: ../../data/urban100/HR
-    dataroot_lq: ../../data/urban100/LR
-    io_backend:
-      type: disk
-  test_5:
+#  test_3: # the 1st test dataset
+#    name: PSet5
+#    type: PairedImageDataset
+#    dataroot_gt: ../../data/Set5/HR
+#    dataroot_lq: ../../data/Set5/LR
+#    io_backend:
+#      type: disk
+#  test_4: # the 2nd test dataset
+#    name: BSDS300
+#    type: PairedImageDataset
+#    dataroot_gt: ../../data/BSDS300/HR
+#    dataroot_lq: ../../data/BSDS300/LR
+#    io_backend:
+#      type: disk
+#  test_5:
+#    name: manga109
+#    type: PairedImageDataset
+#    dataroot_gt: ../../data/manga109/HR
+#    dataroot_lq: ../../data/manga109/LR
+#    io_backend:
+#      type: disk
+#  test_6:
+#    name: urban100
+#    type: PairedImageDataset
+#    dataroot_gt: ../../data/urban100/HR
+#    dataroot_lq: ../../data/urban100/LR
+#    io_backend:
+#      type: disk
+  test_6:
     name: PrivateTest
     type: PairedImageDataset
     dataroot_gt: ../../data/PTest/HR
@@ -56,7 +70,9 @@ network_g:
 
 # path
 path:
-  pretrain_network_g: experiments/302_CARN_x4_f64_DIV2K_3000k_B16G1_RGB/models/net_g_3000000.pth
+  #experiments/302_CARN_x4_f64_DIV2K_5000k_B16G1_RGB_BL_MU/models/net_g_1245000.pth
+  pretrain_network_g: experiments/302_CARN_x4_f64_DIV2K_5000k_B16G1_RGB_BL_MU/models/net_g_1000000.pth
+  #experiments/302_CARN_x4_f64_DIV2K_3000k_B16G1_RGB/models/net_g_3000000.pth
   strict_load_g: true
 
 # validation settings

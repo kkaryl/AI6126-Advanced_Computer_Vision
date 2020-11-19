@@ -85,23 +85,26 @@ class SRModel(BaseModel):
         self.lq = data['lq'].to(self.device)
         if 'gt' in data:
             self.gt = data['gt'].to(self.device)
-            #self.gt, self.lq = augments.match_resolution(self.gt, self.lq)
+
+
+    def optimize_parameters(self, current_iter):
+        if self.opt['network_g'].get('upscale_lq', False):
+            self.gt, self.lq = augments.match_resolution(self.gt, self.lq)
 
         if self.opt.get('train', False):
             gt_aug, lq_aug = self.gt.clone(), self.lq.clone()
             train_opt = self.opt['train']
+
             if train_opt.get('use_cutblur', False):
-                #gt_aug, lq_aug = augments.match_resolution(self.gt, self.lq)
                 gt_aug, lq_aug = augments.cutblur(gt_aug, lq_aug, **train_opt['use_cutblur'])
             if train_opt.get('use_blend', False):
                 gt_aug, lq_aug = augments.blend(gt_aug, lq_aug, **train_opt['use_blend'])
             if train_opt.get('use_rgb_perm', False):
                 gt_aug, lq_aug = augments.rgb(gt_aug, lq_aug, **train_opt['use_rgb_perm'])
+            if train_opt.get('use_mixup', False):
+                gt_aug, lq_aug = augments.mixup(gt_aug, lq_aug, **train_opt['use_mixup'])
             self.gt, self.lq = gt_aug, lq_aug
 
-
-
-    def optimize_parameters(self, current_iter):
         self.optimizer_g.zero_grad()
         self.output = self.net_g(self.lq)
 
@@ -129,6 +132,8 @@ class SRModel(BaseModel):
 
     def test(self):
         self.net_g.eval()
+        if self.opt['network_g'].get('upscale_lq', False):
+            self.gt, self.lq = augments.match_resolution(self.gt, self.lq)
         with torch.no_grad():
             self.output = self.net_g(self.lq)
         self.net_g.train()

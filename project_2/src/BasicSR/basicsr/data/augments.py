@@ -20,6 +20,8 @@ def match_resolution(im1, im2):
     return im1, im2
 
 def cutblur(im1, im2, prob=1.0, alpha=1.0):
+    #im1, im2 = match_resolution(im1, im2)
+
     if alpha <= 0 or np.random.rand(1) >= prob:
         return im1, im2
 
@@ -27,7 +29,6 @@ def cutblur(im1, im2, prob=1.0, alpha=1.0):
     # if im1.size() != im2.size():
     #     scale = im1.size(2) // im2.size(2)
     #     im2 = F.interpolate(im2, scale_factor=scale, mode="nearest")
-    im1, im2 = match_resolution(im1, im2)
 
     if im1.size() != im2.size():
         raise ValueError("im1 and im2 have to be the same resolution.")
@@ -80,6 +81,30 @@ def blend(im1, im2, prob=1.0, alpha=0.6):
 
     return im1, im2
 
+def blend2(im1, im2, prob=1.0, alpha=0.6):
+    if alpha <= 0 or np.random.rand(1) >= prob:
+        return im1, im2
+
+    c = torch.empty((im2.size(0), 3, 1, 1), device=im2.device).uniform_(0, 1)
+    rim2 = c.repeat((1, 1, im2.size(2), im2.size(3)))
+    #rim1 = c.repeat((1, 1, im1.size(2), im1.size(3)))
+
+    v = np.random.uniform(alpha, 1)
+    #im1 = v * im1 + (1-v) * rim1
+    im2 = v * im2 + (1-v) * rim2
+
+    return im1, im2
+
+def mixup(im1, im2, prob=1.0, alpha=1.2):
+    if alpha <= 0 or np.random.rand(1) >= prob:
+        return im1, im2
+
+    v = np.random.beta(alpha, alpha)
+    r_index = torch.randperm(im1.size(0)).to(im2.device)
+
+    im1 = v * im1 + (1-v) * im1[r_index, :]
+    im2 = v * im2 + (1-v) * im2[r_index, :]
+    return im1, im2
 
 # def _cutmix(im2, prob=1.0, alpha=1.0):
 #
