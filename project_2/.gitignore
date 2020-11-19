@@ -1,0 +1,12 @@
+data/DIV2K/
+data/PTest/
+data/*
+
+venv/
+venv_mmedit/
+.ignore/
+.testing/
+.backups/
+
+src/BasicSR/experiments
+src/BasicSR/tb_logger
