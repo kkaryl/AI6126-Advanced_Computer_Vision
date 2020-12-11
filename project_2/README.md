@@ -1,4 +1,4 @@
-# AI6126 Mini-DIV2K SISR Challenge
+# AI6126: Mini-DIV2K SISR Challenge
 
 Ong Jia Hui (G1903467L) 
 
