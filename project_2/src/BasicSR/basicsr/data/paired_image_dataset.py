@@ -1,7 +1,7 @@
 from torch.utils import data as data
 from torchvision.transforms.functional import normalize
 
-from basicsr.data.transforms import augment, paired_random_crop, albu_augment
+from basicsr.data.transforms import augment, paired_random_crop#, albu_augment
 from basicsr.data.util import (paired_paths_from_folder,
                                paired_paths_from_lmdb,
                                paired_paths_from_meta_info_file)
@@ -95,7 +95,7 @@ class PairedImageDataset(data.Dataset):
             img_gt, img_lq = augment([img_gt, img_lq], self.opt['use_flip'],
                                      self.opt['use_rot'])
 
-            img_gt, img_lq = albu_augment([img_gt, img_lq], self.opt['use_bright_contrast'])
+            #img_gt, img_lq = albu_augment([img_gt, img_lq], self.opt['use_bright_contrast'])
 
         # TODO: color space transform
         # BGR to RGB, HWC to CHW, numpy to tensor

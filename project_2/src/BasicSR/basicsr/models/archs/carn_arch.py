@@ -4,6 +4,12 @@ from torch import nn as nn
 from basicsr.models.archs.arch_util import (ResidualBlockNoBN, Upsample, default_init_weights)
 
 """
+Fast, Accurate, and Lightweight Super-Resolution with Cascading Residual Network
+Namhyuk Ahn, Byungkon Kang, Kyung-Ah Sohn
+https://arxiv.org/pdf/1803.08664.pdf
+
+Code References:
+https://github.com/nmhkahn/CARN-pytorch
 https://github.com/clovaai/cutblur/blob/master/model/carn.py
 """
 
@@ -80,13 +86,6 @@ class CARN(nn.Module):
                     "b{}".format(ng + 1),
                     Group(num_feat, num_block, res_scale)
                     )
-
-        # self.b1 = Block(num_feat, res_scale)
-        # self.b2 = Block(num_feat, res_scale)
-        # self.b3 = Block(num_feat, res_scale)
-        # self.c1 = BasicBlock(num_feat * 2, num_feat, 1, 1, 0)
-        # self.c2 = BasicBlock(num_feat * 3, num_feat, 1, 1, 0)
-        # self.c3 = BasicBlock(num_feat * 4, num_feat, 1, 1, 0)
 
         self.upsample = Upsample(upscale, num_feat)
         self.exit = nn.Conv2d(num_feat, num_out_ch, 3, 1, 1)

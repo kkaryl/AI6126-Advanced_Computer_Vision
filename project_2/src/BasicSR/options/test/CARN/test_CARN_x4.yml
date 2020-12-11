@@ -12,13 +12,13 @@ datasets:
     dataroot_lq: ../../data/DIV2K/Val/LR_x4
     io_backend:
       type: disk
-  test_2: # the 1st test dataset
-    name: Set5
-    type: PairedImageDataset
-    dataroot_gt: ../../data/Original/Set5/GTmod12
-    dataroot_lq: ../../data/Original/Set5/LRbicx4
-    io_backend:
-      type: disk
+#  test_2: # the 1st test dataset
+#    name: Set5
+#    type: PairedImageDataset
+#    dataroot_gt: ../../data/Original/Set5/GTmod12
+#    dataroot_lq: ../../data/Original/Set5/LRbicx4
+#    io_backend:
+#      type: disk
 #  test_3: # the 1st test dataset
 #    name: PSet5
 #    type: PairedImageDataset
@@ -47,13 +47,6 @@ datasets:
 #    dataroot_lq: ../../data/urban100/LR
 #    io_backend:
 #      type: disk
-  test_6:
-    name: PrivateTest
-    type: PairedImageDataset
-    dataroot_gt: ../../data/PTest/HR
-    dataroot_lq: ../../data/PTest/LR
-    io_backend:
-      type: disk
 
 # network structures
 network_g:
