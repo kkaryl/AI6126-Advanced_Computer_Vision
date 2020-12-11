@@ -1,8 +1,27 @@
 # AI6126: Mini-DIV2K SISR Challenge
 
-Ong Jia Hui (G1903467L) 
+## Problem Overview
 
-JONG119@e.ntu.edu.sg
+The goal of this mini challenge is to increase the resolution of a single image (by four times). The data for this task comes from the DIV2K dataset. For this challenge, we prepared a mini-dataset, which consists of 500 training and 80 validation pairs of images, where the HR images have 2K resolution and the LR images are downsampled four times.
+
+For each LR image, algorithms will increase the resolution of the images. The quality of the output will be evaluated based on the PSNR between the output and HR images. The idea is to allow an algorithm to reveal more details imperceptible in the LR image.
+
+<u>Constraints</u>:
+
+1. Train your network using our provided mini training set.
+2. Model should contain fewer than 1,821,085 trainable parameters, which is 120% of the trainable parameters in SRResNet.
+3. No external data and pretrained models are allowed in this mini challenge.
+4. You should not use an ensemble of models.
+
+<u>Assessment</u>
+
+We will evaluate and rank the performance of your network model on our given 80 testing LR images based on the PSNR. The higher the rank of your solution, the higher the score you will receive.
+
+## Submitted Model
+
+MSRResNet (Modified SRResNet) with 20 residual blocks has a total of 1,812,995 parameters, trained using standard geometric augmentations, RGB permutation, Blend and MixUp augmentations obtained a PSNR score of 28.99 in Mini-DIV2k test set.
+
+![image-20201211162917633](README.assets/image-20201211162917633.png)
 
 ## Submission Files
 

@@ -1,4 +1,35 @@
-# Source Codes
+# AI6126: Assignment 1
+
+## Problem Overview
+
+The goal of this mini challenge is to identify the attribute label depicted in a facial photograph. The data for this task comes from the CelebA dataset [[1]], which contains 200 thousand images belonging to 40 attribute labels. Specifically, the challenge data for this course consists of 160,000 images for training, 20,000 images for validation and 20,000 images for testing. The images will be pre-cropped and aligned to make the data more manageable.
+
+For each image, algorithms will produce a list of all possible attribute labels. The quality of a labeling will be evaluated based on the label that best matches the ground truth label for the image. The idea is to allow an algorithm to identify multiple attribute labels in an image given that humans often describe a face using different words (e.g. black hair, big eyes, smiling).
+
+<u>Constraints</u>
+
++ Model training strictly on CelebA training set.
++ ImageNet pre-trained model only.
++ Ensemble of models is not allowed.
+
+<u>Assessment Criteria</u>
+
+Evaluate and rank the performance of each submitted solution based on the
+average accuracy across all attributes on a private test set. The higher your prediction accuracy is, the higher the score you will receive.
+
+## Final Model
+
+MobileNetV2 with random horizontal flip, random affine transformations (shift, scale and rotate) as well as MixUp training using Focal Loss.
+
+Note: [Model answer](https://github.com/NIRVANALAN/face-attribute-prediction) was released by professor after grading. The private testset was announced to be from [lfwA+](vis-www.cs.umass.edu/lfw/). 
+
+| Model           | Train Accuracy | Validation Accuracy | Test Accuracy        |
+| --------------- | -------------- | ------------------- | -------------------- |
+| **MobileNetV2** | 91.55          | 92.28               | 91.71                |
+| ResNeXt50       | 92.88          | 92.10               | 91.65                |
+| Model Answer 1  | --             | --                  | 92.14 (73.31 LFWA)   |
+| Model Answer 2  | --             | --                  | 91.7 (**73.9** LFWA) |
+
 ## Submission Files
 
 ```
