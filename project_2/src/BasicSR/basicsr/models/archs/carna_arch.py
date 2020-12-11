@@ -1,13 +1,17 @@
 import torch
 from torch import nn as nn
-from torch.nn import functional as F
 
 from basicsr.models.archs.arch_util import (ResidualBlockNoBN, Upsample, default_init_weights)
 
 """
+Fast, Accurate, and Lightweight Super-Resolution with Cascading Residual Network
+Namhyuk Ahn, Byungkon Kang, Kyung-Ah Sohn
+https://arxiv.org/pdf/1803.08664.pdf
+
+Code References:
+https://github.com/nmhkahn/CARN-pytorch
 https://github.com/clovaai/cutblur/blob/master/model/carn.py
 """
-
 
 class Group(nn.Module):
     def __init__(self, num_channels, num_block, res_scale=1.0):

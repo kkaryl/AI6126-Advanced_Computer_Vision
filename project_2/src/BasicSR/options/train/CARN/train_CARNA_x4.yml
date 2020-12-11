@@ -1,6 +1,3 @@
-# Modified SRResNet w/o BN from:
-# Photo-Realistic Single Image Super-Resolution Using a Generative Adversarial Network
-
 # general settings
 name: 303_CARNA_x4_f64_DIV2K_5000k_B16G1_RGB_BL_MU_CB
 model_type: SRModel
@@ -64,7 +61,7 @@ network_g:
 path:
   pretrain_network_g: ~
   strict_load_g: true
-  resume_state: experiments/303_CARNA_x4_f64_DIV2K_5000k_B16G1_RGB_BL_MU_CB/training_states/180000.state
+  resume_state: ~ #experiments/303_CARNA_x4_f64_DIV2K_5000k_B16G1_RGB_BL_MU_CB/training_states/180000.state
 
 # training settings
 train:
