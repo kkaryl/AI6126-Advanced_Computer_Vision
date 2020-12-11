@@ -5,4 +5,11 @@ There are a total of two individual assignments.
 
 ## Assignment Topics
 
-A1: CelebA 
+A1: CelebA Facial Attribute Recognition Challenge
+
+A2: Mini-DIV2K Single Image Super-Resolution Challenge Report
+
+## Acknowledgement
+
+Lecturer: Prof Chen Change Loy, Prof Ziwei Liu
+
