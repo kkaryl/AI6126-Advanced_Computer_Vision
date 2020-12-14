@@ -7,7 +7,7 @@ There are a total of two individual projects.
 
 A1: CelebA Facial Attribute Recognition Challenge
 
-A2: Mini-DIV2K Single Image Super-Resolution Challenge Report
+A2: Mini-DIV2K Single Image Super-Resolution Challenge
 
 ## Acknowledgement
 
